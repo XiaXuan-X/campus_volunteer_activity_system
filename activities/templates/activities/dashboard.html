@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | Campus Volunteer{% endblock %}
+
+{% block content %}
+
+  <!-- Quote / Announcement -->
+  <section class="notice">
+    <div class="notice-body">
+      <p class="notice-title">
+        “Life’s most persistent and urgent question is: What are you doing for others?”
+      </p>
+      <p class="notice-author">— Martin Luther King Jr.</p>
+    </div>
+  </section>
+
+  <div class="dash-head">
+    <h1 class="hero-title">Dashboard</h1>
+    <p class="dash-subtitle">Welcome back, Xuan. Here is a quick overview of your volunteering.</p>
+  </div>
+
+  <!-- Summary cards -->
+  <section class="dash-section">
+    <h2 class="dash-h2">Volunteer Summary</h2>
+    <div class="divider"></div>
+
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="summary-label">Applications Submitted</div>
+        <div class="summary-value">3</div>
+        <div class="summary-hint">Total applications you have made.</div>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-label">Pending</div>
+        <div class="summary-value">2</div>
+        <div class="summary-hint">Waiting for organiser approval.</div>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-label">Approved</div>
+        <div class="summary-value">1</div>
+        <div class="summary-hint">You are confirmed to attend.</div>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-label">Available This Week</div>
+        <div class="summary-value">5</div>
+        <div class="summary-hint">Activities open for applications.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Two-column area -->
+  <section class="dash-two">
+
+    <!-- Recent Applications -->
+    <div class="card dash-block">
+      <h2>Recent Applications</h2>
+      <div class="divider"></div>
+
+      <div class="list">
+        <div class="row">
+          <div class="row-main">
+            <div class="row-title">Campus Clean-up Day</div>
+            <div class="row-meta">Submitted: 05 Mar 2026</div>
+          </div>
+          <span class="badge badge-pending">Pending</span>
+        </div>
+
+        <div class="row">
+          <div class="row-main">
+            <div class="row-title">Library Support Program</div>
+            <div class="row-meta">Submitted: 01 Mar 2026</div>
+          </div>
+          <span class="badge badge-approved">Approved</span>
+        </div>
+
+        <div class="row">
+          <div class="row-main">
+            <div class="row-title">Food Bank Volunteer</div>
+            <div class="row-meta">Submitted: 27 Feb 2026</div>
+          </div>
+          <span class="badge badge-pending">Pending</span>
+        </div>
+      </div>
+
+      <div class="dash-footer">
+        <a class="btn-link" href="{% url 'activities:my_applications' %}">View all applications</a>
+      </div>
+    </div>
+
+    <!-- Upcoming Activities -->
+    <div class="card dash-block">
+      <h2>Upcoming Activities</h2>
+      <div class="divider"></div>
+
+      <div class="list">
+        <div class="row">
+          <div class="row-main">
+            <div class="row-title">Campus Tree Planting</div>
+            <div class="row-meta">12 Mar 2026 · University Park</div>
+          </div>
+          <span class="badge badge-info">Upcoming</span>
+        </div>
+
+        <div class="row">
+          <div class="row-main">
+            <div class="row-title">Community Food Drive</div>
+            <div class="row-meta">18 Mar 2026 · City Centre</div>
+          </div>
+          <span class="badge badge-info">Upcoming</span>
+        </div>
+
+        <div class="row">
+          <div class="row-main">
+            <div class="row-title">Charity Fun Run Support</div>
+            <div class="row-meta">22 Mar 2026 · Riverside Track</div>
+          </div>
+          <span class="badge badge-info">Upcoming</span>
+        </div>
+      </div>
+
+      <div class="dash-footer">
+        <a class="btn-link" href="{% url 'activities:activity_list' %}">Browse activities</a>
+      </div>
+    </div>
+
+  </section>
+
+{% endblock %}

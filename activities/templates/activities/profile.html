@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block title %}Profile | Campus Volunteer{% endblock %}
+
+{% block content %}
+
+<div class="page">
+  <div class="container">
+
+    <div class="profile-header">
+      <div class="avatar">XX</div>
+
+      <div class="profile-head-text">
+        <h1 class="profile-name">Xuan Xia</h1>
+        <div class="profile-role">Volunteer</div>
+        <div class="profile-email">xuanxia@example.com</div>
+      </div>
+
+      <div class="profile-head-actions">
+        <a class="btn small-btn" href="{% url 'password_reset' %}">Reset Password</a>
+      </div>
+    </div>
+
+    <!-- Cards grid -->
+    <div class="profile-grid2">
+
+      <!-- User details + Emergency contact (merged) -->
+      <section class="card profile-block">
+        <div class="block-head">
+          <h2>User details</h2>
+        </div>
+        <div class="divider"></div>
+
+        <div class="kv">
+          <div class="k">Email address</div>
+          <div class="v">xuanxia@example.com</div>
+        </div>
+
+        <div class="kv">
+          <div class="k">Phone number</div>
+          <div class="v">07XXXXXXXXX</div>
+        </div>
+
+        <div class="kv">
+          <div class="k">Country</div>
+          <div class="v">United Kingdom</div>
+        </div>
+
+        <div class="kv">
+          <div class="k">City/town</div>
+          <div class="v">Glasgow</div>
+        </div>
+
+        <div class="kv">
+          <div class="k">Timezone</div>
+          <div class="v">Europe/London</div>
+        </div>
+
+        <div class="kv">
+          <div class="k">Programme</div>
+          <div class="v">Master of Science (IT)</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="block-head">
+          <h2>Emergency contact</h2>
+        </div>
+        <div class="divider"></div>
+
+        <div class="kv">
+          <div class="k">Name</div>
+          <div class="v">XXXXX</div>
+        </div>
+
+        <div class="kv">
+          <div class="k">Relationship</div>
+          <div class="v">Parent</div>
+        </div>
+
+        <div class="kv">
+          <div class="k">Phone</div>
+          <div class="v">XXXXXXXXXXX</div>
+        </div>
+      </section>
+
+      <!-- Volunteer info -->
+      <section class="card profile-block">
+        <div class="block-head">
+          <h2>Volunteer information</h2>
+        </div>
+        <div class="divider"></div>
+
+        <div class="kv">
+          <div class="k">Skills</div>
+          <div class="v">Event support, basic admin, communication</div>
+        </div>
+
+        <div class="kv">
+          <div class="k">Previous experience</div>
+          <div class="v">
+            Joined campus clean-up events and supported charity donation drives.
+          </div>
+        </div>
+
+        <div class="kv">
+          <div class="k">Availability</div>
+          <div class="v">Weekends, weekdays evenings</div>
+        </div>
+
+        <div class="kv">
+          <div class="k">About me</div>
+          <div class="v">
+            Interested in community service and student-led volunteering opportunities.
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

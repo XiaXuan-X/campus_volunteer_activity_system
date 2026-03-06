@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Activity Details | Campus Volunteer{% endblock %}
+
+{% block content %}
+
+<h1 class="hero-title">Activity Details</h1>
+
+<section class="detail-card">
+
+  <h2 class="detail-title">Food Bank Volunteer Drive</h2>
+  <div class="divider"></div>
+
+  <div class="detail-grid">
+
+    <div class="detail-item">
+      <div class="detail-label">Activity Title</div>
+      <div class="detail-value">Food Bank Volunteer Drive</div>
+    </div>
+
+    <div class="detail-item">
+      <div class="detail-label">Date</div>
+      <div class="detail-value">25 Feb 2026</div>
+    </div>
+
+    <div class="detail-item">
+      <div class="detail-label">Time</div>
+      <div class="detail-value">12:30 – 15:30</div>
+    </div>
+
+      <div class="detail-item">
+      <div class="detail-label">Volunteer</div>
+      <div class="detail-value">12 / 20</div>
+    </div>
+
+    <div class="detail-item">
+      <div class="detail-label">Location</div>
+      <div class="detail-value">James McCune Smith Building</div>
+    </div>
+
+    <div class="detail-item detail-item-full">
+      <div class="detail-label">Description</div>
+      <div class="detail-value">
+        Assist with sorting and packaging food donations for local families. Help organise food items,
+        manage inventory, and prepare distribution packages for community members in need.
+      </div>
+    </div>
+
+  </div>
+
+  <div class="detail-actions">
+    <a class="btn outline-btn" href="{% url 'activities:apply' %}">Apply</a>
+    <a class="btn" href="{% url 'activities:activity_list' %}">Close</a>
+  </div>
+
+</section>
+
+{% endblock %}

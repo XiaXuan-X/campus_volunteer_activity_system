@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block title %}Application Detail | Campus Volunteer{% endblock %}
+
+{% block content %}
+
+<h1 class="hero-title">Volunteer Applications</h1>
+
+<section class="card">
+
+  <h2>Food Bank Volunteer Drive</h2>
+  <div class="divider"></div>
+
+  <div class="kv">
+    <div class="k">Date</div>
+    <div class="v">2026-02-25</div>
+  </div>
+
+  <div class="kv">
+    <div class="k">Location</div>
+    <div class="v">James McCune Smith Building</div>
+  </div>
+
+</section>
+
+
+<section class="card">
+
+  <h2>Applications</h2>
+  <div class="divider"></div>
+
+  <!-- Applicant 1 -->
+  <div class="application-card">
+
+    <div class="application-info">
+      <div>
+        <p class="applicant-name">Ovais Shaikh</p>
+        <p class="applicant-email">ovais@gmail.com</p>
+        <p class="applicant-date">Applied: 2026-02-12</p>
+      </div>
+
+      <span class="status-badge pending">Pending</span>
+    </div>
+
+    <div class="application-actions">
+      <button class="btn small-btn">Approve</button>
+      <button class="btn outline-btn small-btn">Reject</button>
+
+      <label class="attended">
+        <input type="checkbox">
+        Attended
+      </label>
+    </div>
+
+  </div>
+
+
+  <!-- Applicant 2 -->
+  <div class="application-card">
+
+    <div class="application-info">
+      <div>
+        <p class="applicant-name">Tianshu Zhou</p>
+        <p class="applicant-email">tianshu@gmail.com</p>
+        <p class="applicant-date">Applied: 2026-02-13</p>
+      </div>
+
+      <span class="status-badge approved">Approved</span>
+    </div>
+
+    <div class="application-actions">
+      <button class="btn small-btn disabled-btn">Approved</button>
+
+      <label class="attended">
+        <input type="checkbox">
+        Attended
+      </label>
+    </div>
+
+  </div>
+
+  <div class="application-card">
+
+    <div class="application-info">
+      <div>
+        <p class="applicant-name">Ovais Shaikh</p>
+        <p class="applicant-email">ovais@gmail.com</p>
+        <p class="applicant-date">Applied: 2026-02-12</p>
+      </div>
+
+      <span class="status-badge pending">Pending</span>
+    </div>
+
+    <div class="application-actions">
+      <button class="btn small-btn">Approve</button>
+      <button class="btn outline-btn small-btn">Reject</button>
+
+      <label class="attended">
+        <input type="checkbox">
+        Attended
+      </label>
+    </div>
+
+  </div>
+
+</section>
+
+
+<a href="{% url 'organiser:applications' %}" class="btn outline-btn">
+  ← Back to Applications
+</a>
+
+{% endblock %}

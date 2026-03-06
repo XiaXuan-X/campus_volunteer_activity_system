@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Activities | Campus Volunteer{% endblock %}
+
+{% block content %}
+
+<div class="page">
+<div class="container">
+
+<h1 class="hero-title">Available Activities</h1>
+
+<div class="divider"></div>
+
+<!-- Filter bar -->
+
+<form class="filter-bar" method="get">
+
+  <div class="filter-group">
+    <label class="label">Filter by location</label>
+    <input type="text" name="location" placeholder="Enter location">
+  </div>
+
+  <div class="filter-group">
+    <label class="label">Filter by date</label>
+    <input type="date" name="date"  lang="en">
+  </div>
+
+
+
+  <button class="btn search-btn" type="submit">Search</button>
+
+</form>
+
+<!-- Activity card -->
+
+<div class="activity-card">
+
+  <div class="activity-header">
+      <h3>Food Bank Volunteer Drive</h3>
+
+      <a class="btn small-btn" href="{% url 'activities:activity_detail' %}">
+          View Details
+      </a>
+  </div>
+
+  <p><strong>Location:</strong> James McCune Smith Building</p>
+  <p><strong>Date:</strong> 25 Feb 2026</p>
+
+</div>
+
+
+
+<div class="activity-card">
+
+  <div class="activity-header">
+      <h3>Food Bank Volunteer Drive</h3>
+
+      <a class="btn small-btn" href="{% url 'activities:activity_detail' %}">
+          View Details
+      </a>
+  </div>
+  <p><strong>Location:</strong> James McCune Smith Building</p>
+  <p><strong>Date:</strong> 25 Feb 2026</p>
+
+</div>
+<div class="activity-card">
+
+  <div class="activity-header">
+      <h3>Food Bank Volunteer Drive</h3>
+
+      <a class="btn small-btn" href="{% url 'activities:activity_detail' %}">
+          View Details
+      </a>
+  </div>
+  <p><strong>Location:</strong> James McCune Smith Building</p>
+  <p><strong>Date:</strong> 25 Feb 2026</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Activities | Campus Volunteer{% endblock %}
+
+{% block content %}
+<h1 class="hero-title">Manage Activities</h1>
+
+<p class="page-subtitle">
+  View, edit and monitor the activities you have created.
+</p>
+
+<section class="toolbar-card">
+  <div class="toolbar-left">
+    <input type="text" class="search-input" placeholder="Search activities">
+
+    <select class="filter-select">
+      <option>All Status</option>
+      <option>Open</option>
+      <option>Full</option>
+      <option>Closed</option>
+    </select>
+  </div>
+
+  <a href="{% url 'organiser:create_activity' %}" class="btn">+ Create New Activity</a>
+</section>
+
+<section class="activities-list">
+
+  <article class="activity-row">
+    <div class="activity-main">
+      <h2 class="activity-title">Food Donation Drive</h2>
+      <p class="activity-meta">12 Mar 2026 | Library Square</p>
+      <p class="activity-meta">12 / 20 volunteers</p>
+    </div>
+
+    <div class="activity-status">
+      <span class="status-badge open">Open</span>
+    </div>
+
+    <div class="activity-actions">
+<a href="{% url 'organiser:activity_detail' %}" class="action-btn">View</a>
+      <a href="{% url 'organiser:edit_activity' %}" class="action-btn">Edit</a>
+      <a href="#" class="action-btn danger">Delete</a>
+    </div>
+  </article>
+
+  <article class="activity-row">
+    <div class="activity-main">
+      <h2 class="activity-title">Food Donation Drive</h2>
+      <p class="activity-meta">18 Mar 2026 | Student Union</p>
+      <p class="activity-meta">20 / 20 volunteers</p>
+    </div>
+
+    <div class="activity-status">
+      <span class="status-badge full">Full</span>
+    </div>
+
+    <div class="activity-actions">
+      <a href="{% url 'organiser:activity_detail' %}" class="action-btn">View</a>
+      <a href="{% url 'organiser:edit_activity' %}" class="action-btn">Edit</a>
+      <a href="#" class="action-btn danger">Delete</a>
+    </div>
+  </article>
+
+</section>
+{% endblock %}

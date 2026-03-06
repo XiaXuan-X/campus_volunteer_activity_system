@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Apply | Campus Volunteer{% endblock %}
+
+{% block content %}
+
+<h1 class="hero-title">Apply for This Activity</h1>
+
+<section class="card apply-card">
+  <h2>Application Form</h2>
+  <div class="divider"></div>
+
+  <p class="apply-sub">
+    You are applying for:
+    <strong>Food Bank Volunteer Drive</strong>
+  </p>
+
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="field">
+      <label class="label" for="phone">Phone Number *</label>
+      <input id="phone" name="phone" type="tel" placeholder="Enter your phone number" required>
+    </div>
+
+    <div class="field">
+      <label class="label" for="motivation">Why do you want to join this activity? *</label>
+      <textarea id="motivation" name="motivation" rows="4"
+        placeholder="Briefly explain why you would like to join this activity." required></textarea>
+    </div>
+
+    <div class="field">
+      <label class="label" for="skills">Relevant Skills or Experience (Optional)</label>
+      <textarea id="skills" name="skills" rows="4"
+        placeholder="List any relevant skills or previous volunteer experience."></textarea>
+    </div>
+
+    <div class="field">
+      <label class="label">Are you available for the full activity time? *</label>
+
+      <div class="role-option">
+        <input id="available_yes" name="availability" type="radio" value="yes" required>
+        <label for="available_yes">Yes</label>
+      </div>
+
+      <div class="role-option">
+        <input id="available_no" name="availability" type="radio" value="no" required>
+        <label for="available_no">No</label>
+      </div>
+    </div>
+
+    <div class="apply-actions">
+      <button class="btn outline-btn" type="submit">Submit Application</button>
+      <a class="btn" href="{% url 'activities:activity_detail' %}">Cancel</a>
+    </div>
+  </form>
+</section>
+
+{% endblock %}

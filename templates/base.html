@@ -1,0 +1,106 @@
+  <!DOCTYPE html>
+  {% load static %}
+  <html lang="en">
+
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>{% block title %}Campus Volunteer{% endblock %}</title>
+
+      <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+
+  <body>
+
+  <header class="topbar">
+{% if request.path != '/accounts/login/' and request.path != '/accounts/register/' %}
+      <div class="topbar-left">
+          <a class="brand" href="{% url 'activities:dashboard' %}">
+              Campus Volunteer
+          </a>
+
+          {% if request.path|slice:":10" == "/organiser" %}
+          <nav class="tabs organiser-tabs">
+          <a class="tab" href="{% url 'organiser:applications' %}">Applications</a>
+          <a class="tab" href="{% url 'organiser:manage_activities' %}">Manage Activities</a>
+          <a class="tab" href="{% url 'organiser:create_activity' %}">Create Activity</a>
+            </nav>
+          {% else %}
+                    <nav class="tabs">
+
+              <a class="tab"
+                 href="{% url 'activities:dashboard' %}">
+                 Dashboard
+              </a>
+
+              <a class="tab"
+                 href="{% url 'activities:activity_list' %}">
+                 Activities
+              </a>
+
+              <a class="tab"
+                 href="{% url 'activities:my_applications' %}">
+                 My Applications
+              </a>
+
+          </nav>
+          {% endif %}
+
+      </div>
+
+
+      <div class="topbar-right">
+
+          <div class="user-menu">
+
+              <button class="user-btn" type="button">
+                  Account ▾
+              </button>
+              <div class="user-dropdown">
+                  <a href="{% url 'activities:profile' %}">
+                      Profile
+                  </a>
+                  <a href="{% url 'password_reset' %}">
+                      Reset Password
+                  </a>
+
+                  <div class="dropdown-divider"></div>
+
+                  <a href="{% url 'activities:logout' %}">
+                      Logout
+                  </a>
+
+              </div>
+
+          </div>
+
+      </div>
+       {% endif %}
+
+  </header>
+
+
+  <main class="page">
+
+    <div class="container">
+
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert {{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+
+    </div>
+
+</main>
+
+  </body>
+
+  </html>

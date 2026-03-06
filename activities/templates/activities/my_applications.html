@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}My Applications | Campus Volunteer{% endblock %}
+
+{% block content %}
+
+<h1 class="hero-title">My Applications</h1>
+
+<section class="card app-card">
+
+  <div class="app-head">
+    <div>
+      <h2>Application Status</h2>
+      <p class="app-sub">Track your submitted applications and their current status.</p>
+    </div>
+
+    <a class="btn small-btn" href="{% url 'activities:activity_list' %}">Browse Activities</a>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Filter bar (front-end only) -->
+  <form class="app-filter" method="get">
+    <div class="filter-group">
+      <label class="label" for="status">Filter by status</label>
+      <select id="status" name="status">
+        <option value="">All</option>
+        <option value="pending">Pending</option>
+        <option value="approved">Approved</option>
+        <option value="rejected">Rejected</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label class="label" for="q">Search by activity</label>
+      <input id="q" name="q" type="text" placeholder="Enter activity title">
+    </div>
+
+    <button class="btn search-btn" type="submit">Search</button>
+  </form>
+
+  <div class="divider"></div>
+
+  <!-- List -->
+  <div class="app-list">
+
+    <div class="app-row">
+      <div class="app-main">
+        <div class="app-title">Food Bank Volunteer Drive</div>
+        <div class="app-meta">Submitted: 06 Mar 2026 · Date: 25 Feb 2026 · James McCune Smith Building</div>
+      </div>
+      <span class="badge badge-pending">Pending</span>
+    </div>
+
+    <div class="app-row">
+      <div class="app-main">
+        <div class="app-title">Library Support Program</div>
+        <div class="app-meta">Submitted: 01 Mar 2026 · Date: 10 Mar 2026 · Student Union</div>
+      </div>
+      <span class="badge badge-approved">Approved</span>
+    </div>
+
+    <div class="app-row">
+      <div class="app-main">
+        <div class="app-title">Campus Clean-up Day</div>
+        <div class="app-meta">Submitted: 27 Feb 2026 · Date: 12 Mar 2026 · University Park</div>
+      </div>
+      <span class="badge badge-rejected">Rejected</span>
+    </div>
+
+  </div>
+
+</section>
+
+{% endblock %}

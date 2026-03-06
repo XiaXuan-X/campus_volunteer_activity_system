@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Activity Detail | Campus Volunteer{% endblock %}
+
+{% block content %}
+<h1 class="hero-title">Activity Details</h1>
+
+<section class="card">
+  <h2>Activity Details</h2>
+  <div class="divider"></div>
+
+  <div class="detail-grid">
+    <div class="detail-item">
+      <span class="detail-label">Date</span>
+      <span class="detail-value">12 Mar 2026</span>
+    </div>
+
+    <div class="detail-item">
+      <span class="detail-label">Location</span>
+      <span class="detail-value">Library Square</span>
+    </div>
+
+    <div class="detail-item">
+      <span class="detail-label">Volunteers</span>
+      <span class="detail-value">12 / 20</span>
+    </div>
+
+    <div class="detail-item">
+      <span class="detail-label">Status</span>
+      <span class="detail-value">Open</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <h2>Description</h2>
+  <p class="detail-description">
+    Join this community clean-up activity to help improve the local environment.
+    Gloves and collection bags will be provided for all volunteers.
+  </p>
+
+  <div class="detail-actions">
+    <a href="{% url 'organiser:manage_activities' %}" class="action-btn">Back</a>
+    <a href="{% url 'organiser:create_activity' %}" class="action-btn">Edit</a>
+    <a href="#" class="action-btn danger">Delete</a>
+  </div>
+</section>
+{% endblock %}
