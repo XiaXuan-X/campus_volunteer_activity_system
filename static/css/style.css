@@ -1147,3 +1147,32 @@
   align-items: center;
   gap: 6px;
 }
+
+.profile-link {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 700;
+}
+.back-floating {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+
+  background: #000;
+  color: #fff;
+
+  padding: 12px 20px;
+  border-radius: 8px;
+
+  text-decoration: none;
+  font-weight: 600;
+
+  display: inline-block;
+  width: auto;
+
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+
+.back-floating:hover {
+  background: #222;
+}
