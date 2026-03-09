@@ -38,9 +38,12 @@
     </div>
 
     <div class="activity-actions">
-<a href="{% url 'organiser:activity_detail' %}" class="action-btn">View</a>
+      <a href="{% url 'organiser:activity_detail' %}" class="action-btn">View</a>
       <a href="{% url 'organiser:edit_activity' %}" class="action-btn">Edit</a>
-      <a href="#" class="action-btn danger">Delete</a>
+      <button class="action-btn danger" type="button"
+              onclick="openModal('Delete this activity?')">
+        Delete
+      </button>
     </div>
   </article>
 
@@ -58,9 +61,14 @@
     <div class="activity-actions">
       <a href="{% url 'organiser:activity_detail' %}" class="action-btn">View</a>
       <a href="{% url 'organiser:edit_activity' %}" class="action-btn">Edit</a>
-      <a href="#" class="action-btn danger">Delete</a>
+      <button class="action-btn danger" type="button"
+              onclick="openModal('Delete this activity?')">
+        Delete
+      </button>
     </div>
   </article>
 
 </section>
+
+
 {% endblock %}

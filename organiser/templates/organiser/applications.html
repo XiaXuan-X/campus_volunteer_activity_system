@@ -33,8 +33,57 @@
         </div>
 
         <div class="activity-admin-actions">
-          <a class="btn small-btn" href="{% url 'organiser:application_detail' %}">View applications</a>
+          <button class="btn small-btn"
+                  type="button"
+                  onclick="toggleApps('apps1', this)">
+            View applications
+          </button>
         </div>
+
+        <!-- Hidden applications preview -->
+        <div id="apps1" class="applications-preview" style="display:none; margin-top:16px;">
+
+          <div class="application-card">
+            <div class="application-info">
+              <div>
+                <p class="applicant-name">
+                  <a href="{% url 'activities:profile' %}" class="profile-link">
+                    Ovais Shaikh
+                  </a>
+                </p>
+                <p class="applicant-email">ovais@gmail.com</p>
+                <p class="applicant-date">Applied: 2026-02-12</p>
+              </div>
+
+              <span class="status-badge pending">Pending</span>
+            </div>
+          </div>
+
+          <div class="application-card">
+            <div class="application-info">
+              <div>
+                <p class="applicant-name">
+                  <a href="{% url 'activities:profile' %}" class="profile-link">
+                    Tianshu Zhou
+                  </a>
+                </p>
+                <p class="applicant-email">tianshu@gmail.com</p>
+                <p class="applicant-date">Applied: 2026-02-13</p>
+              </div>
+
+              <span class="status-badge approved">Approved</span>
+            </div>
+          </div>
+
+          <div style="margin-top:12px;">
+            <a class="btn outline-btn small-btn"
+               href="{% url 'organiser:application_detail' %}">
+              See full details
+            </a>
+          </div>
+
+        </div>
+
       </div>
 
       <!-- Activity item 2 -->
@@ -59,8 +108,41 @@
         </div>
 
         <div class="activity-admin-actions">
-          <a class="btn small-btn" href="{% url 'organiser:application_detail' %}">View applications</a>
+          <button class="btn small-btn"
+                  type="button"
+                  onclick="toggleApps('apps2', this)">
+            View applications
+          </button>
         </div>
+
+        <!-- Hidden applications preview -->
+        <div id="apps2" class="applications-preview" style="display:none; margin-top:16px;">
+
+          <div class="application-card">
+            <div class="application-info">
+              <div>
+                <p class="applicant-name">
+                  <a href="{% url 'activities:profile' %}" class="profile-link">
+                    Tianshu Zhou
+                  </a>
+                </p>
+                <p class="applicant-email">tianshu@gmail.com</p>
+                <p class="applicant-date">Applied: 2026-03-01</p>
+              </div>
+
+              <span class="status-badge approved">Approved</span>
+            </div>
+          </div>
+
+          <div style="margin-top:12px;">
+            <a class="btn outline-btn small-btn"
+               href="{% url 'organiser:application_detail' %}">
+              See full details
+            </a>
+          </div>
+
+        </div>
+
       </div>
 
       <!-- Summary -->
@@ -87,4 +169,21 @@
 
   </div>
 </div>
+
+<script>
+function toggleApps(id, button) {
+
+  const box = document.getElementById(id);
+
+  if (box.style.display === "none" || box.style.display === "") {
+    box.style.display = "block";
+    button.textContent = "Hide applications";
+  } else {
+    box.style.display = "none";
+    button.textContent = "View applications";
+  }
+
+}
+</script>
+
 {% endblock %}

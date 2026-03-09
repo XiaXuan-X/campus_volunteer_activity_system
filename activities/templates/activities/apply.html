@@ -15,7 +15,7 @@
     <strong>Food Bank Volunteer Drive</strong>
   </p>
 
-  <form method="post">
+  <form method="post" id="applyForm">
     {% csrf_token %}
 
     <div class="field">
@@ -50,10 +50,36 @@
     </div>
 
     <div class="apply-actions">
-      <button class="btn outline-btn" type="submit">Submit Application</button>
-      <a class="btn" href="{% url 'activities:activity_detail' %}">Cancel</a>
+      <button class="btn outline-btn" type="button" onclick="confirmApply()">
+        Submit Application
+      </button>
+
+      <a class="btn" href="{% url 'activities:activity_detail' %}">
+        Cancel
+      </a>
     </div>
+
   </form>
 </section>
+
+<script>
+function confirmApply() {
+
+  const form = document.getElementById("applyForm");
+
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+
+  openModal("Submit this application? Please confirm your information.");
+
+  const confirmBtn = document.querySelector("#confirmModal .btn:not(.outline-btn)");
+
+  confirmBtn.onclick = function () {
+    form.requestSubmit();
+  };
+}
+</script>
 
 {% endblock %}

@@ -23,34 +23,58 @@ Create Activity | Campus Volunteer
   {% else %}
   <h2>Create Activity</h2>
   {% endif %}
+
   <div class="divider"></div>
 
   <form method="post">
-
     {% csrf_token %}
 
-    <div class="field">
-      <label class="label">Activity Title *</label>
-      <input type="text" placeholder="Enter activity title" required>
-    </div>
+    <p class="form-note">
+      * Required fields must be completed before submitting the form.
+    </p>
 
     <div class="field">
-      <label class="label">Description *</label>
-      <textarea rows="5"
-      placeholder="Provide a detailed description of the activity (minimum 20 characters)"
-      required></textarea>
+      <label class="label" for="title">Activity Title *</label>
+      <input
+        id="title"
+        name="title"
+        type="text"
+        placeholder="Enter activity title"
+        value="{% if mode == 'edit' %}{{ activity.title }}{% endif %}"
+        required>
+    </div>
+
+
+    <div class="field">
+      <label class="label" for="description">Description *</label>
+      <textarea
+        id="description"
+        name="description"
+        rows="5"
+        placeholder="Provide a detailed description of the activity (minimum 20 characters)"
+        required>{% if mode == "edit" %}{{ activity.description }}{% endif %}</textarea>
     </div>
 
     <div class="grid-2">
 
       <div class="field">
-        <label class="label">Start Date *</label>
-        <input type="date" required>
+        <label class="label" for="start_date">Start Date *</label>
+        <input
+          id="start_date"
+          name="start_date"
+          type="date"
+          value="{% if mode == 'edit' %}{{ activity.start_date }}{% endif %}"
+          required>
       </div>
 
       <div class="field">
-        <label class="label">Time *</label>
-        <input type="time" required>
+        <label class="label" for="start_time">Start Time *</label>
+        <input
+          id="start_time"
+          name="start_time"
+          type="time"
+          value="{% if mode == 'edit' %}{{ activity.start_time }}{% endif %}"
+          required>
       </div>
 
     </div>
@@ -58,33 +82,47 @@ Create Activity | Campus Volunteer
     <div class="grid-2">
 
       <div class="field">
-        <label class="label">End Date *</label>
-        <input type="date" required>
+        <label class="label" for="end_date">End Date *</label>
+        <input
+          id="end_date"
+          name="end_date"
+          type="date"
+          value="{% if mode == 'edit' %}{{ activity.end_date }}{% endif %}"
+          required>
       </div>
 
       <div class="field">
-        <label class="label">Time *</label>
-        <input type="time" required>
+        <label class="label" for="end_time">End Time *</label>
+        <input
+          id="end_time"
+          name="end_time"
+          type="time"
+          value="{% if mode == 'edit' %}{{ activity.end_time }}{% endif %}"
+          required>
       </div>
 
     </div>
 
     <div class="field">
-      <label class="label">Location *</label>
-      <input type="text" placeholder="Enter activity location" required>
+      <label class="label" for="location">Location *</label>
+      <input
+        id="location"
+        name="location"
+        type="text"
+        placeholder="Enter activity location"
+        value="{% if mode == 'edit' %}{{ activity.location }}{% endif %}"
+        required>
     </div>
 
     <button class="btn" type="submit">
+      {% if mode == "edit" %}
+      Save Changes
+      {% else %}
       Create Activity
+      {% endif %}
     </button>
 
   </form>
-
-  <div class="divider"></div>
-
-  <p class="form-note">
-    * Required fields. All information will be visible to volunteers browsing activities.
-  </p>
 
 </section>
 

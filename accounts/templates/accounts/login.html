@@ -3,7 +3,7 @@
 {% block title %}Login | Campus Volunteer{% endblock %}
 
 {% block content %}
- <div class="page">
+<div class="page">
   <div class="container">
 
     <h1 class="hero-title">Campus Volunteer Activity</h1>
@@ -12,31 +12,38 @@
       <h2>Login</h2>
       <div class="divider"></div>
 
-    {% if error %}
-      <div class="error">{{ error }}</div>
-    {% endif %}
+      {% if error %}
+        <div class="error" role="alert">
+          {{ error }}
+        </div>
+      {% endif %}
 
-    <form method="post" autocomplete="off">
-      {% csrf_token %}
+      <form method="post" autocomplete="off">
+        {% csrf_token %}
 
-      <div class="field">
-        <label class="label" for="email">Email Address *</label>
-        <input id="email" name="email" type="email" placeholder="Enter your email" required>
-      </div>
+        <p class="form-note">
+          * Required fields. Please enter your registered email address and password.
+        </p>
 
-      <div class="field">
-        <label class="label" for="password">Password *</label>
-        <input id="password" name="password" type="password" placeholder="Enter your password" required>
-      </div>
+        <div class="field">
+          <label class="label" for="email">Email Address *</label>
+          <input id="email" name="email" type="email" placeholder="Enter your email" required>
+        </div>
 
-      <button class="btn" type="submit" >Login</button>
+        <div class="field">
+          <label class="label" for="password">Password *</label>
+          <input id="password" name="password" type="password" placeholder="Enter your password" required>
+        </div>
 
-      <div class="links">
-        <a href="{% url 'register' %}">Don't have an account? Register here</a></br>
-        <a href="{% url 'password_reset' %}">Forgot password? Reset it here</a>
-      </div>
-    </form>
-  </section>
+        <button class="btn" type="submit">Login</button>
+
+        <div class="links">
+          <a href="{% url 'register' %}">Don't have an account? Register here</a></br>
+          <a href="{% url 'password_reset' %}">Forgot password? Reset it here</a>
+        </div>
+      </form>
+    </section>
+
   </div>
 </div>
 {% endblock %}

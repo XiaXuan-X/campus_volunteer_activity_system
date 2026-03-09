@@ -10,14 +10,49 @@
       <link rel="stylesheet" href="{% static 'css/style.css' %}">
   </head>
 
+    <div id="confirmModal" class="modal">
+      <div class="modal-box">
+
+        <p id="modalText">Are you sure?</p>
+
+        <div class="modal-actions">
+          <button class="btn outline-btn small-btn" type="button" onclick="closeModal()">
+            Cancel
+          </button>
+
+          <button class="btn small-btn" type="button" onclick="closeModal()">
+            Confirm
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <script>
+    function openModal(message){
+      document.getElementById("modalText").innerText = message;
+      document.getElementById("confirmModal").classList.add("show");
+    }
+
+    function closeModal(){
+      document.getElementById("confirmModal").classList.remove("show");
+    }
+    </script>
+
   <body>
 
   <header class="topbar">
 {% if request.path != '/accounts/login/' and request.path != '/accounts/register/' %}
       <div class="topbar-left">
-          <a class="brand" href="{% url 'activities:dashboard' %}">
-              Campus Volunteer
-          </a>
+          {% if request.path|slice:":10" == "/organiser" %}
+            <a class="brand" href="{% url 'organiser:applications' %}">
+                Campus Volunteer
+            </a>
+            {% else %}
+            <a class="brand" href="{% url 'activities:dashboard' %}">
+                Campus Volunteer
+            </a>
+            {% endif %}
 
           {% if request.path|slice:":10" == "/organiser" %}
           <nav class="tabs organiser-tabs">

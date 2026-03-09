@@ -44,8 +44,15 @@
     </div>
 
     <div class="application-actions">
-      <button class="btn small-btn">Approve</button>
-      <button class="btn outline-btn small-btn">Reject</button>
+        <button class="btn small-btn"
+        onclick="openModal('Approve this volunteer?')">
+        Approve
+        </button>
+
+        <button class="btn outline-btn small-btn"
+        onclick="openModal('Reject this volunteer?')">
+        Reject
+        </button>
 
       <label class="attended">
         <input type="checkbox">
@@ -82,6 +89,8 @@
 
   </div>
 
+
+  <!-- Applicant 3 -->
   <div class="application-card">
 
     <div class="application-info">
@@ -97,8 +106,15 @@
     </div>
 
     <div class="application-actions">
-      <button class="btn small-btn">Approve</button>
-      <button class="btn outline-btn small-btn">Reject</button>
+        <button class="btn small-btn"
+        onclick="openModal('Approve this volunteer?')">
+        Approve
+        </button>
+
+        <button class="btn outline-btn small-btn"
+        onclick="openModal('Reject this volunteer?')">
+        Reject
+        </button>
 
       <label class="attended">
         <input type="checkbox">
@@ -114,5 +130,4 @@
 <a href="{% url 'organiser:applications' %}" class="btn outline-btn">
   ← Back to Applications
 </a>
-
 {% endblock %}
