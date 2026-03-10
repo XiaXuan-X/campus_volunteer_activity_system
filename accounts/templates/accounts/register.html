@@ -12,6 +12,12 @@
       <h2>User Registration</h2>
       <div class="divider"></div>
 
+      {% if error %}
+      <div class="error" style="color:red; margin-bottom:10px;">
+        {{ error }}
+      </div>
+      {% endif %}
+
       <form method="post" autocomplete="off">
         {% csrf_token %}
 
@@ -21,32 +27,32 @@
 
         <div class="field">
           <label class="label" for="first_name">First Name *</label>
-          <input id="first_name" type="text" name="first_name" required>
+          <input id="first_name" type="text" name="first_name" value="{{ request.POST.first_name }}" required>
         </div>
 
         <div class="field">
           <label class="label" for="last_name">Last Name *</label>
-          <input id="last_name" type="text" name="last_name" required>
+          <input id="last_name" type="text" name="last_name" value="{{ request.POST.last_name }}" required>
         </div>
 
         <div class="field">
           <label class="label" for="phone">Phone Number *</label>
-          <input id="phone" type="text" name="phone" required>
+          <input id="phone" type="text" name="phone" value="{{ request.POST.phone }}" required>
         </div>
 
         <div class="field">
           <label class="label" for="email">Email Address *</label>
-          <input id="email" type="email" name="email" required autocomplete="off" placeholder="Enter your email">
+          <input id="email" type="email" name="email" required autocomplete="off" placeholder="Enter your email" value="{{ request.POST.email }}" >
         </div>
 
         <div class="field">
           <label class="label" for="password">Password *</label>
-          <input id="password" type="password" name="password" required autocomplete="off" placeholder="Enter your password">
+          <input id="password" type="password" name="password" required autocomplete="off" placeholder="Enter your password" value="{{ request.POST.password }}" >
         </div>
 
         <div class="field">
           <label class="label" for="confirm_password">Confirm Password *</label>
-          <input id="confirm_password" type="password" name="confirm_password" required placeholder="Re-enter your password">
+          <input id="confirm_password" type="password" name="confirm_password" required placeholder="Re-enter your password" >
         </div>
 
         <div class="field">
