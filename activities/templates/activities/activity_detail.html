@@ -8,49 +8,80 @@
 
 <section class="detail-card">
 
-  <h2 class="detail-title">Food Bank Volunteer Drive</h2>
+  <h2 class="detail-title">{{ activity.title }}</h2>
   <div class="divider"></div>
 
   <div class="detail-grid">
 
     <div class="detail-item">
       <div class="detail-label">Activity Title</div>
-      <div class="detail-value">Food Bank Volunteer Drive</div>
-    </div>
-
-    <div class="detail-item">
-      <div class="detail-label">Date</div>
-      <div class="detail-value">25 Feb 2026</div>
-    </div>
-
-    <div class="detail-item">
-      <div class="detail-label">Time</div>
-      <div class="detail-value">12:30 – 15:30</div>
-    </div>
-
-      <div class="detail-item">
-      <div class="detail-label">Volunteer</div>
-      <div class="detail-value">12 / 20</div>
+      <div class="detail-value">{{ activity.title }}</div>
     </div>
 
     <div class="detail-item">
       <div class="detail-label">Location</div>
-      <div class="detail-value">James McCune Smith Building</div>
+      <div class="detail-value">{{ activity.location }}</div>
+    </div>
+
+    <div class="detail-item">
+      <div class="detail-label">Start Datetime</div>
+      <div class="detail-value">
+        {{ activity.start_datetime|date:"d M Y" }}
+        {{ activity.start_datetime|time:"H:i" }}
+      </div>
+    </div>
+    
+    <div class="detail-item">
+      <div class="detail-label">End Datetime</div>
+      <div class="detail-value">
+        {{ activity.end_datetime|date:"d M Y" }}
+        {{ activity.end_datetime|time:"H:i" }}
+      </div>
+    </div>
+
+    <div class="detail-item">
+      <div class="detail-label">Volunteers</div>
+      <div class="detail-value">
+        {{ approved_count }} / {{ activity.max_volunteers }}
+      </div>
     </div>
 
     <div class="detail-item detail-item-full">
       <div class="detail-label">Description</div>
       <div class="detail-value">
-        Assist with sorting and packaging food donations for local families. Help organise food items,
-        manage inventory, and prepare distribution packages for community members in need.
+        {{ activity.description }}
       </div>
     </div>
 
   </div>
 
   <div class="detail-actions">
-    <a class="btn outline-btn" href="{% url 'activities:apply' %}">Apply</a>
-    <a class="btn" href="{% url 'activities:activity_list' %}">Close</a>
+
+    {% if is_full %}
+    
+    <button class="btn disabled-btn" disabled>
+      Activity Full
+    </button>
+    
+    {% elif already_applied %}
+    
+    <button class="btn outline-btn disabled-btn" disabled>
+      Already Applied
+    </button>
+    
+    {% else %}
+    
+    <a class="btn outline-btn"
+       href="{% url 'activities:apply' activity.id %}">
+       Apply
+    </a>
+    
+    {% endif %}
+    
+    <a class="btn" href="{% url 'activities:activity_list' %}">
+      Close
+    </a>
+    
   </div>
 
 </section>

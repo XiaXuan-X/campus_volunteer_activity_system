@@ -19,8 +19,9 @@ def login_view(request):
             login(request, user)
 
             if user.role == "organiser":
-                return redirect("organiser:dashboard")
-            else:
+                return redirect("organiser:manage_activities")
+
+            elif user.role == "volunteer":
                 return redirect("activities:dashboard")
 
         else:

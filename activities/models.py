@@ -9,13 +9,9 @@ class Activity(models.Model):
 
     location = models.CharField(max_length=200)
 
-    start_date = models.DateField()
+    start_datetime = models.DateTimeField()
 
-    start_time = models.TimeField()
-
-    end_date = models.DateField()
-
-    end_time = models.TimeField()
+    end_datetime = models.DateTimeField()
 
     max_volunteers = models.IntegerField()
 

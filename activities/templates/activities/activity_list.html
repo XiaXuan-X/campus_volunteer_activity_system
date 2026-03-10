@@ -1,86 +1,91 @@
 {% extends "base.html" %}
 
-{% block title %}Activities | Campus Volunteer{% endblock %}
+{% block title %}
+Activities | Campus Volunteer
+{% endblock %}
 
 {% block content %}
 
 <div class="page">
-<div class="container">
+  <div class="container">
+    <h1 class="hero-title">Available Activities</h1>
 
-<h1 class="hero-title">Available Activities</h1>
+    <div class="divider"></div>
 
-<div class="divider"></div>
+    <!-- Filter bar -->
 
-<!-- Filter bar -->
+    <form class="filter-bar" method="get">
 
-<form class="filter-bar" method="get">
+      <div class="filter-group">
+        <label class="label">Title</label>
+        <input type="text"
+               name="title"
+               placeholder="Enter title"
+               value="{{ request.GET.title }}">
+      </div>
+    
+      <div class="filter-group">
+        <label class="label">Location</label>
+        <input type="text"
+               name="location"
+               placeholder="Enter location"
+               value="{{ request.GET.location }}">
+      </div>
+    
+      <div class="filter-group">
+        <label class="label">Date</label>
+        <input type="date"
+               name="date"
+               value="{{ request.GET.date }}">
+      </div>
+    
+      <button class="btn search-btn" type="submit">
+        Search
+      </button>
+    
+    </form>
 
-  <div class="filter-group">
-    <label class="label">Filter by location</label>
-    <input type="text" name="location" placeholder="Enter location">
+    <!-- Activity card -->
+
+    {% for activity in activities %}
+
+    <div class="activity-card">
+
+      <div class="activity-header">
+        <h3>{{ activity.title }}</h3>
+    
+        <a class="btn small-btn"
+           href="{% url 'activities:activity_detail' activity.id %}">
+           View Details
+        </a>
+      </div>
+    
+      <p><strong>Location:</strong> {{ activity.location }}</p>
+    
+      <p>
+        <strong>Date</strong>
+        {{ activity.start_datetime|date:"d M Y" }}
+        </p>
+    
+      <p>
+        <strong>Volunteers:</strong>
+        {{ activity.approved_volunteers }} / {{ activity.max_volunteers }}
+      </p>
+    
+      {% if activity.approved_volunteers >= activity.max_volunteers %}
+          <span class="status-badge full">Full</span>
+      {% else %}
+          <span class="status-badge open">Open</span>
+      {% endif %}
+    
+    </div>
+
+    {% empty %}
+
+    <p>No activities available right now.</p>
+
+    {% endfor %}
   </div>
-
-  <div class="filter-group">
-    <label class="label">Filter by date</label>
-    <input type="date" name="date"  lang="en">
-  </div>
-
-
-
-  <button class="btn search-btn" type="submit">Search</button>
-
-</form>
-
-<!-- Activity card -->
-
-<div class="activity-card">
-
-  <div class="activity-header">
-      <h3>Food Bank Volunteer Drive</h3>
-
-      <a class="btn small-btn" href="{% url 'activities:activity_detail' %}">
-          View Details
-      </a>
-  </div>
-
-  <p><strong>Location:</strong> James McCune Smith Building</p>
-  <p><strong>Date:</strong> 25 Feb 2026</p>
-
 </div>
-
-
-
-<div class="activity-card">
-
-  <div class="activity-header">
-      <h3>Food Bank Volunteer Drive</h3>
-
-      <a class="btn small-btn" href="{% url 'activities:activity_detail' %}">
-          View Details
-      </a>
-  </div>
-  <p><strong>Location:</strong> James McCune Smith Building</p>
-  <p><strong>Date:</strong> 25 Feb 2026</p>
-
-</div>
-<div class="activity-card">
-
-  <div class="activity-header">
-      <h3>Food Bank Volunteer Drive</h3>
-
-      <a class="btn small-btn" href="{% url 'activities:activity_detail' %}">
-          View Details
-      </a>
-  </div>
-  <p><strong>Location:</strong> James McCune Smith Building</p>
-  <p><strong>Date:</strong> 25 Feb 2026</p>
-
-</div>
-
-
-</div>
-
-</div>
-
 
 {% endblock %}

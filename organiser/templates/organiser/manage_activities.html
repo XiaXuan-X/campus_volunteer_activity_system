@@ -26,49 +26,51 @@
 
 <section class="activities-list">
 
+  {% for activity in activities %}
+  
   <article class="activity-row">
+  
     <div class="activity-main">
-      <h2 class="activity-title">Food Donation Drive</h2>
-      <p class="activity-meta">12 Mar 2026 | Library Square</p>
-      <p class="activity-meta">12 / 20 volunteers</p>
+      <h2 class="activity-title">{{ activity.title }}</h2>
+  
+      <p class="activity-meta">
+        {{ activity.start_datetime|date:"d M Y" }} | {{ activity.location }}
+      </p>
+  
+      <p class="activity-meta">
+        {{ activity.applications.count }} / {{ activity.max_volunteers }} volunteers
+      </p>
     </div>
-
+  
     <div class="activity-status">
-      <span class="status-badge open">Open</span>
+  
+      {% if activity.applications.count >= activity.max_volunteers %}
+        <span class="status-badge full">Full</span>
+      {% else %}
+        <span class="status-badge open">Open</span>
+      {% endif %}
+  
     </div>
-
+  
     <div class="activity-actions">
       <a href="{% url 'organiser:activity_detail' %}" class="action-btn">View</a>
       <a href="{% url 'organiser:edit_activity' %}" class="action-btn">Edit</a>
+  
       <button class="action-btn danger" type="button"
               onclick="openModal('Delete this activity?')">
         Delete
       </button>
     </div>
+  
   </article>
-
-  <article class="activity-row">
-    <div class="activity-main">
-      <h2 class="activity-title">Food Donation Drive</h2>
-      <p class="activity-meta">18 Mar 2026 | Student Union</p>
-      <p class="activity-meta">20 / 20 volunteers</p>
-    </div>
-
-    <div class="activity-status">
-      <span class="status-badge full">Full</span>
-    </div>
-
-    <div class="activity-actions">
-      <a href="{% url 'organiser:activity_detail' %}" class="action-btn">View</a>
-      <a href="{% url 'organiser:edit_activity' %}" class="action-btn">Edit</a>
-      <button class="action-btn danger" type="button"
-              onclick="openModal('Delete this activity?')">
-        Delete
-      </button>
-    </div>
-  </article>
-
-</section>
+  
+  {% empty %}
+  
+  <p>No activities created yet.</p>
+  
+  {% endfor %}
+  
+  </section>
 
 
 {% endblock %}

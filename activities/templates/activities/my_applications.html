@@ -25,15 +25,17 @@
       <label class="label" for="status">Filter by status</label>
       <select id="status" name="status">
         <option value="">All</option>
-        <option value="pending">Pending</option>
-        <option value="approved">Approved</option>
-        <option value="rejected">Rejected</option>
+        <option value="pending" {% if request.GET.status == "pending" %}selected{% endif %}>Pending</option>
+        <option value="approved" {% if request.GET.status == "approved" %}selected{% endif %}>Approved</option>
+        <option value="rejected" {% if request.GET.status == "rejected" %}selected{% endif %}>Rejected</option>
       </select>
     </div>
 
     <div class="filter-group">
       <label class="label" for="q">Search by activity</label>
-      <input id="q" name="q" type="text" placeholder="Enter activity title">
+      <input id="q" name="q" type="text"
+       placeholder="Enter activity title"
+       value="{{ request.GET.q }}">
     </div>
 
     <button class="btn search-btn" type="submit">Search</button>
@@ -44,29 +46,38 @@
   <!-- List -->
   <div class="app-list">
 
-    <div class="app-row">
-      <div class="app-main">
-        <div class="app-title">Food Bank Volunteer Drive</div>
-        <div class="app-meta">Submitted: 06 Mar 2026 · Date: 25 Feb 2026 · James McCune Smith Building</div>
-      </div>
-      <span class="badge badge-pending">Pending</span>
-    </div>
+    <div class="app-list">
 
-    <div class="app-row">
-      <div class="app-main">
-        <div class="app-title">Library Support Program</div>
-        <div class="app-meta">Submitted: 01 Mar 2026 · Date: 10 Mar 2026 · Student Union</div>
+      {% for app in applications %}
+      
+      <div class="app-row">
+        <div class="app-main">
+      
+          <div class="app-title">
+            {{ app.activity.title }}
+          </div>
+      
+          <div class="app-meta">
+            Submitted: {{ app.applied_at|date:"d M Y" }} ·
+            Date: {{ app.activity.start_datetime|date:"d M Y" }} ·
+            {{ app.activity.location }}
+          </div>
+      
+        </div>
+      
+        <span class="badge badge-{{ app.status }}">
+          {{ app.status|title }}
+        </span>
+      
       </div>
-      <span class="badge badge-approved">Approved</span>
-    </div>
-
-    <div class="app-row">
-      <div class="app-main">
-        <div class="app-title">Campus Clean-up Day</div>
-        <div class="app-meta">Submitted: 27 Feb 2026 · Date: 12 Mar 2026 · University Park</div>
+      
+      {% empty %}
+      
+      <p>You have not applied to any activities yet.</p>
+      
+      {% endfor %}
+      
       </div>
-      <span class="badge badge-rejected">Rejected</span>
-    </div>
 
   </div>
 

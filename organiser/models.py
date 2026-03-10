@@ -33,5 +33,8 @@ class Application(models.Model):
 
     attended = models.BooleanField(default=False)
 
+    class Meta:
+        unique_together = ('volunteer', 'activity')
+
     def __str__(self):
         return f"{self.volunteer} - {self.activity}"

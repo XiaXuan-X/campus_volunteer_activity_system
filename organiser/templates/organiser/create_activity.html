@@ -55,52 +55,22 @@ Create Activity | Campus Volunteer
         required>{% if mode == "edit" %}{{ activity.description }}{% endif %}</textarea>
     </div>
 
-    <div class="grid-2">
-
-      <div class="field">
-        <label class="label" for="start_date">Start Date *</label>
-        <input
-          id="start_date"
-          name="start_date"
-          type="date"
-          value="{% if mode == 'edit' %}{{ activity.start_date }}{% endif %}"
-          required>
-      </div>
-
-      <div class="field">
-        <label class="label" for="start_time">Start Time *</label>
-        <input
-          id="start_time"
-          name="start_time"
-          type="time"
-          value="{% if mode == 'edit' %}{{ activity.start_time }}{% endif %}"
-          required>
-      </div>
-
+    <div class="field">
+      <label class="label" for="start_datetime">Start Date & Time *</label>
+      <input
+        id="start_datetime"
+        name="start_datetime"
+        type="datetime-local"
+        required>
     </div>
-
-    <div class="grid-2">
-
-      <div class="field">
-        <label class="label" for="end_date">End Date *</label>
-        <input
-          id="end_date"
-          name="end_date"
-          type="date"
-          value="{% if mode == 'edit' %}{{ activity.end_date }}{% endif %}"
-          required>
-      </div>
-
-      <div class="field">
-        <label class="label" for="end_time">End Time *</label>
-        <input
-          id="end_time"
-          name="end_time"
-          type="time"
-          value="{% if mode == 'edit' %}{{ activity.end_time }}{% endif %}"
-          required>
-      </div>
-
+    
+    <div class="field">
+      <label class="label" for="end_datetime">End Date & Time *</label>
+      <input
+        id="end_datetime"
+        name="end_datetime"
+        type="datetime-local"
+        required>
     </div>
 
     <div class="field">
@@ -111,6 +81,17 @@ Create Activity | Campus Volunteer
         type="text"
         placeholder="Enter activity location"
         value="{% if mode == 'edit' %}{{ activity.location }}{% endif %}"
+        required>
+    </div>
+
+    <div class="field">
+      <label class="label" for="max_volunteers">Maximum Volunteers *</label>
+      <input
+        id="max_volunteers"
+        name="max_volunteers"
+        type="number"
+        min="1"
+        placeholder="Enter maximum number of volunteers"
         required>
     </div>
 
