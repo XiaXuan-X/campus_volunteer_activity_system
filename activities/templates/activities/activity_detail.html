@@ -72,8 +72,9 @@
     {% else %}
     
     <a class="btn outline-btn"
-       href="{% url 'activities:apply' activity.id %}">
-       Apply
+     href="#"
+     onclick="openModal('Are you sure you want to apply for this activity?', '{% url 'activities:apply' activity.id %}'); return false;">
+     Apply
     </a>
     
     {% endif %}

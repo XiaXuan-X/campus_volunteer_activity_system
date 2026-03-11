@@ -40,10 +40,9 @@ Create Activity | Campus Volunteer
         name="title"
         type="text"
         placeholder="Enter activity title"
-        value="{% if mode == 'edit' %}{{ activity.title }}{% endif %}"
+        value="{{ activity.title|default:'' }}"
         required>
     </div>
-
 
     <div class="field">
       <label class="label" for="description">Description *</label>
@@ -52,7 +51,7 @@ Create Activity | Campus Volunteer
         name="description"
         rows="5"
         placeholder="Provide a detailed description of the activity (minimum 20 characters)"
-        required>{% if mode == "edit" %}{{ activity.description }}{% endif %}</textarea>
+        required>{{ activity.description|default:'' }}</textarea>
     </div>
 
     <div class="field">
@@ -61,15 +60,17 @@ Create Activity | Campus Volunteer
         id="start_datetime"
         name="start_datetime"
         type="datetime-local"
+        value="{{ activity.start_datetime|date:'Y-m-d\\TH:i' }}"
         required>
     </div>
-    
+
     <div class="field">
       <label class="label" for="end_datetime">End Date & Time *</label>
       <input
         id="end_datetime"
         name="end_datetime"
         type="datetime-local"
+        value="{{ activity.end_datetime|date:'Y-m-d\\TH:i' }}"
         required>
     </div>
 
@@ -80,7 +81,7 @@ Create Activity | Campus Volunteer
         name="location"
         type="text"
         placeholder="Enter activity location"
-        value="{% if mode == 'edit' %}{{ activity.location }}{% endif %}"
+        value="{{ activity.location|default:'' }}"
         required>
     </div>
 
@@ -92,6 +93,7 @@ Create Activity | Campus Volunteer
         type="number"
         min="1"
         placeholder="Enter maximum number of volunteers"
+        value="{{ activity.max_volunteers|default:'' }}"
         required>
     </div>
 

@@ -26,51 +26,50 @@
 
 <section class="activities-list">
 
-  {% for activity in activities %}
-  
-  <article class="activity-row">
-  
-    <div class="activity-main">
-      <h2 class="activity-title">{{ activity.title }}</h2>
-  
-      <p class="activity-meta">
-        {{ activity.start_datetime|date:"d M Y" }} | {{ activity.location }}
-      </p>
-  
-      <p class="activity-meta">
-        {{ activity.applications.count }} / {{ activity.max_volunteers }} volunteers
-      </p>
-    </div>
-  
-    <div class="activity-status">
-  
+{% for activity in activities %}
+
+<article class="activity-row">
+
+  <div class="activity-main">
+
+    <div class="activity-status-badge">
       {% if activity.applications.count >= activity.max_volunteers %}
         <span class="status-badge full">Full</span>
       {% else %}
         <span class="status-badge open">Open</span>
       {% endif %}
-  
     </div>
-  
-    <div class="activity-actions">
-      <a href="{% url 'organiser:activity_detail' %}" class="action-btn">View</a>
-      <a href="{% url 'organiser:edit_activity' %}" class="action-btn">Edit</a>
-  
-      <button class="action-btn danger" type="button"
-              onclick="openModal('Delete this activity?')">
-        Delete
-      </button>
-    </div>
-  
-  </article>
-  
-  {% empty %}
-  
-  <p>No activities created yet.</p>
-  
-  {% endfor %}
-  
-  </section>
 
+    <h2 class="activity-title">{{ activity.title }}</h2>
+
+    <p class="activity-meta">
+      {{ activity.start_datetime|date:"d M Y" }} | {{ activity.location }}
+    </p>
+
+    <p class="activity-meta">
+      {{ activity.applications.count }} / {{ activity.max_volunteers }} volunteers
+    </p>
+
+  </div>
+
+  <div class="detail-actions">
+    <a href="{% url 'organiser:activity_detail' activity.id %}" class="action-btn">View</a>
+    <a href="{% url 'organiser:edit_activity' activity.id %}" class="action-btn">Edit</a>
+    <a href="#"
+     class="action-btn danger"
+     onclick="openModal('Delete this activity?', '{% url 'organiser:delete_activity' activity.id %}'); return false;">
+     Delete
+    </a>
+  </div>
+
+</article>
+
+{% empty %}
+
+<p>No activities created yet.</p>
+
+{% endfor %}
+
+</section>
 
 {% endblock %}

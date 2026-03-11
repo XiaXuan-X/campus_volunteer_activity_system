@@ -1,48 +1,77 @@
 {% extends "base.html" %}
 
-{% block title %}Activity Detail | Campus Volunteer{% endblock %}
+{% block title %}Activity Details | Campus Volunteer{% endblock %}
 
 {% block content %}
+
 <h1 class="hero-title">Activity Details</h1>
 
 <section class="card">
-  <h2>Activity Details</h2>
+
+  <h2>{{ activity.title }}</h2>
   <div class="divider"></div>
 
   <div class="detail-grid">
+
     <div class="detail-item">
-      <span class="detail-label">Date</span>
-      <span class="detail-value">12 Mar 2026</span>
+      <span class="detail-label">Activity Title</span>
+      <span class="detail-value">{{ activity.title }}</span>
     </div>
 
     <div class="detail-item">
       <span class="detail-label">Location</span>
-      <span class="detail-value">Library Square</span>
+      <span class="detail-value">{{ activity.location }}</span>
+    </div>
+
+    <div class="detail-item">
+      <span class="detail-label">Start Date & Time</span>
+      <span class="detail-value">
+        {{ activity.start_datetime|date:"d M Y" }} {{ activity.start_datetime|time:"H:i" }}
+      </span>
+    </div>
+
+    <div class="detail-item">
+      <span class="detail-label">End Date & Time</span>
+      <span class="detail-value">
+        {{ activity.end_datetime|date:"d M Y" }} {{ activity.end_datetime|time:"H:i" }}
+      </span>
     </div>
 
     <div class="detail-item">
       <span class="detail-label">Volunteers</span>
-      <span class="detail-value">12 / 20</span>
+      <span class="detail-value">{{ approved_count }} / {{ activity.max_volunteers }}</span>
     </div>
 
     <div class="detail-item">
       <span class="detail-label">Status</span>
-      <span class="detail-value">Open</span>
+      <span class="detail-value">
+        {% if approved_count >= activity.max_volunteers %}
+          Full
+        {% else %}
+          Open
+        {% endif %}
+      </span>
     </div>
+
   </div>
 
   <div class="divider"></div>
 
   <h2>Description</h2>
   <p class="detail-description">
-    Join this community clean-up activity to help improve the local environment.
-    Gloves and collection bags will be provided for all volunteers.
+    {{ activity.description }}
   </p>
 
   <div class="detail-actions">
     <a href="{% url 'organiser:manage_activities' %}" class="action-btn">Back</a>
-    <a href="{% url 'organiser:create_activity' %}" class="action-btn">Edit</a>
-    <a href="#" class="action-btn danger">Delete</a>
+    <a href="{% url 'organiser:edit_activity' activity.id %}" class="action-btn">Edit</a>
+    <a href="#"
+     class="action-btn danger"
+     onclick="openModal('Delete this activity?', '{% url 'organiser:delete_activity' activity.id %}'); return false;">
+     Delete
+    </a>
   </div>
+
 </section>
+
 {% endblock %}

@@ -1,27 +1,22 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from activities.models import Activity
 from datetime import datetime
 
-# Create your views here.
+
 def organiser_applications(request):
     return render(request, "organiser/applications.html")
 
 
 def create_activity(request):
-
     if request.method == "POST":
-
         title = request.POST.get("title")
         description = request.POST.get("description")
         location = request.POST.get("location")
-
         start_datetime = request.POST.get("start_datetime")
         end_datetime = request.POST.get("end_datetime")
-
         max_volunteers = request.POST.get("max_volunteers")
 
-        # Convert string to datetime
         start_datetime = datetime.fromisoformat(start_datetime)
         end_datetime = datetime.fromisoformat(end_datetime)
 
@@ -36,14 +31,11 @@ def create_activity(request):
         )
 
         messages.success(request, "Activity created successfully")
-
         return redirect("organiser:manage_activities")
 
     return render(request, "organiser/create_activity.html", {
         "mode": "create"
     })
-
-from activities.models import Activity
 
 
 def manage_activities(request):
@@ -52,17 +44,47 @@ def manage_activities(request):
         "activities": activities
     })
 
-def organiser_activity_detail(request):
-    return render(request, "organiser/activity_detail.html")
 
-def edit_activity(request):
+def activity_detail(request, activity_id):
+    activity = get_object_or_404(Activity, id=activity_id, organiser=request.user)
+
+    approved_count = 0
+    if hasattr(activity, "applications"):
+        approved_count = activity.applications.filter(status="approved").count()
+
+    return render(request, "organiser/activity_detail.html", {
+        "activity": activity,
+        "approved_count": approved_count,
+    })
+
+
+def edit_activity(request, activity_id):
+    activity = get_object_or_404(Activity, id=activity_id, organiser=request.user)
+
     if request.method == "POST":
+        activity.title = request.POST.get("title")
+        activity.description = request.POST.get("description")
+        activity.location = request.POST.get("location")
+        activity.start_datetime = datetime.fromisoformat(request.POST.get("start_datetime"))
+        activity.end_datetime = datetime.fromisoformat(request.POST.get("end_datetime"))
+        activity.max_volunteers = request.POST.get("max_volunteers")
+        activity.save()
+
         messages.success(request, "Activity updated successfully")
-        return redirect("organiser:manage_activities")
+        return redirect("organiser:activity_detail", activity_id=activity.id)
 
     return render(request, "organiser/create_activity.html", {
-        "mode": "edit"
+        "mode": "edit",
+        "activity": activity,
     })
+
 
 def application_detail(request):
     return render(request, "organiser/application_detail.html")
+
+def delete_activity(request, activity_id):
+    activity = get_object_or_404(Activity, id=activity_id)
+
+    activity.delete()
+
+    return redirect("organiser:manage_activities")

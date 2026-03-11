@@ -1287,3 +1287,49 @@ textarea:focus {
   outline: 3px solid #3b82f6;
   outline-offset: 2px;
 }
+
+.activity-row {
+  position: relative;
+  padding-top: 34px;
+}
+
+.activity-status-badge {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+}
+
+.activity-row .detail-actions {
+  margin-top: 20px;
+}
+.manage-card {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+  padding: 48px 36px 32px;
+  margin-bottom: 24px;
+  background: #f7f7f7;
+  border: 1px solid #d9dee8;
+  border-radius: 24px;
+}
+
+.manage-badge {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+}
+
+.manage-left {
+  flex: 1;
+  min-width: 0;
+}
+
+.manage-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 0;
+  padding-top: 24px;
+}

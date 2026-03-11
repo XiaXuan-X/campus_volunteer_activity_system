@@ -20,24 +20,35 @@
             Cancel
           </button>
 
-          <button class="btn small-btn" type="button" onclick="closeModal()">
-            Confirm
-          </button>
+         <button class="btn small-btn" type="button" onclick="confirmDelete()">
+          Confirm
+        </button>
         </div>
 
       </div>
     </div>
 
-    <script>
-    function openModal(message){
+ <script>
+
+    let deleteUrl = null;
+
+    function openModal(message, url){
       document.getElementById("modalText").innerText = message;
       document.getElementById("confirmModal").classList.add("show");
+      deleteUrl = url;
     }
 
     function closeModal(){
       document.getElementById("confirmModal").classList.remove("show");
     }
-    </script>
+
+    function confirmDelete(){
+      if(deleteUrl){
+        window.location.href = deleteUrl;
+      }
+    }
+
+</script>
 
   <body>
 
