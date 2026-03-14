@@ -21,4 +21,6 @@ path(
 ),
 path("applications/attendance/<int:application_id>/", views.toggle_attendance, name="toggle_attendance",
 ),
+path("export-volunteers/<int:activity_id>/", views.export_volunteers, name="export_volunteers",
+)
 ]

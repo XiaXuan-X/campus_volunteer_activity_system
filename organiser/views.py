@@ -3,7 +3,8 @@ from django.contrib import messages
 from activities.models import Activity
 from organiser.models import Application
 from datetime import datetime
-
+import csv
+from django.http import HttpResponse
 
 def organiser_applications(request):
     activities = Activity.objects.filter(organiser=request.user)
@@ -49,8 +50,16 @@ def create_activity(request):
 
 def manage_activities(request):
     activities = Activity.objects.filter(organiser=request.user)
+    activity_data = []
+    for activity in activities:
+        approved_count = activity.applications.filter(status="approved").count()
+        activity_data.append({
+            "activity": activity,
+            "approved_count": approved_count
+        })
+
     return render(request, "organiser/manage_activities.html", {
-        "activities": activities
+        "activity_data": activity_data
     })
 
 
@@ -169,3 +178,27 @@ def toggle_attendance(request, application_id):
         "organiser:application_detail",
         activity_id=application.activity.id
     )
+    
+def export_volunteers(request, activity_id):
+    activity = Activity.objects.get(id=activity_id)
+    applications = Application.objects.filter(activity=activity)
+    response = HttpResponse(content_type="text/csv")
+    response["Content-Disposition"] = f'attachment; filename="{activity.title}_Applications.csv"'
+    writer = csv.writer(response)
+    writer.writerow([
+        "Volunteer Name",
+        "Email",
+        "Status",
+        "Attended",
+        "Applied At",
+    ])
+    for application in applications:
+        writer.writerow([
+            application.volunteer.get_full_name(),
+            application.volunteer.email,
+            application.status,
+            "Yes" if application.attended else "No",
+            application.applied_at.strftime("%Y-%m-%d"),
+        ])
+
+    return response

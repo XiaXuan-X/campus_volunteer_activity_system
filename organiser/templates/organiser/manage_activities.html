@@ -3,6 +3,7 @@
 {% block title %}Manage Activities | Campus Volunteer{% endblock %}
 
 {% block content %}
+
 <h1 class="hero-title">Manage Activities</h1>
 
 <p class="page-subtitle">
@@ -21,48 +22,63 @@
     </select>
   </div>
 
-  <a href="{% url 'organiser:create_activity' %}" class="btn">+ Create New Activity</a>
+  <a href="{% url 'organiser:create_activity' %}" class="btn">
+    + Create New Activity
+  </a>
 </section>
 
 <section class="activities-list">
 
-{% for activity in activities %}
+{% for item in activity_data %}
+{% with activity=item.activity approved_count=item.approved_count %}
 
 <article class="activity-row">
 
   <div class="activity-main">
 
     <div class="activity-status-badge">
-      {% if activity.applications.count >= activity.max_volunteers %}
+      {% if approved_count >= activity.max_volunteers %}
         <span class="status-badge full">Full</span>
       {% else %}
         <span class="status-badge open">Open</span>
       {% endif %}
     </div>
 
-    <h2 class="activity-title">{{ activity.title }}</h2>
+    <h2 class="activity-title">
+      {{ activity.title }}
+    </h2>
 
     <p class="activity-meta">
       {{ activity.start_datetime|date:"d M Y" }} | {{ activity.location }}
     </p>
 
     <p class="activity-meta">
-      {{ activity.applications.count }} / {{ activity.max_volunteers }} volunteers
+      {{ approved_count }} / {{ activity.max_volunteers }} volunteers
     </p>
 
   </div>
 
   <div class="detail-actions">
-    <a href="{% url 'organiser:activity_detail' activity.id %}" class="action-btn">View</a>
-    <a href="{% url 'organiser:edit_activity' activity.id %}" class="action-btn">Edit</a>
-    <a href="#"
-     class="action-btn danger"
-     onclick="openModal('Delete this activity?', '{% url 'organiser:delete_activity' activity.id %}'); return false;">
-     Delete
+
+    <a href="{% url 'organiser:activity_detail' activity.id %}" class="action-btn">
+      View
     </a>
+
+    <a href="{% url 'organiser:edit_activity' activity.id %}" class="action-btn">
+      Edit
+    </a>
+
+    <a href="#"
+       class="action-btn danger"
+       onclick="openModal('Delete this activity?', '{% url 'organiser:delete_activity' activity.id %}'); return false;">
+       Delete
+    </a>
+
   </div>
 
 </article>
+
+{% endwith %}
 
 {% empty %}
 

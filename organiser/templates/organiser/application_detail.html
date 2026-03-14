@@ -4,6 +4,7 @@ Volunteer{% endblock %} {% block content %}
 <h1 class="hero-title">Volunteer Applications</h1>
 
 <section class="card">
+
   <h2>{{ activity.title }}</h2>
   <div class="divider"></div>
 
@@ -16,6 +17,13 @@ Volunteer{% endblock %} {% block content %}
     <div class="k">Location</div>
     <div class="v">{{ activity.location }}</div>
   </div>
+
+  <div style="margin-top:20px;">
+    <a href="{% url 'organiser:export_volunteers' activity.id %}" class="btn outline-btn">
+      Export Applications Report
+    </a>
+  </div>
+
 </section>
 
 <section class="card">
