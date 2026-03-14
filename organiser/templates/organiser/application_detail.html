@@ -1,133 +1,115 @@
-{% extends "base.html" %}
-{% block title %}Application Detail | Campus Volunteer{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %}Application Detail | Campus
+Volunteer{% endblock %} {% block content %}
 
 <h1 class="hero-title">Volunteer Applications</h1>
 
 <section class="card">
-
-  <h2>Food Bank Volunteer Drive</h2>
+  <h2>{{ activity.title }}</h2>
   <div class="divider"></div>
 
   <div class="kv">
     <div class="k">Date</div>
-    <div class="v">2026-02-25</div>
+    <div class="v">{{ activity.start_datetime|date:"Y-m-d" }}</div>
   </div>
 
   <div class="kv">
     <div class="k">Location</div>
-    <div class="v">James McCune Smith Building</div>
+    <div class="v">{{ activity.location }}</div>
   </div>
-
 </section>
 
-
 <section class="card">
-
   <h2>Applications</h2>
   <div class="divider"></div>
 
-  <!-- Applicant 1 -->
-  <div class="application-card">
+  {% for application in applications %}
 
+  <div class="application-card">
     <div class="application-info">
       <div>
         <p class="applicant-name">
-          <a href="{% url 'activities:profile' %}" class="profile-link">
-              Ovais Shaikh</a></p>
-        <p class="applicant-email">ovais@gmail.com</p>
-        <p class="applicant-date">Applied: 2026-02-12</p>
+          <a href="{% url 'activities:view_profile' application.volunteer.id %}" class="profile-link">
+            {{ application.volunteer.get_full_name }}
+          </a>
+        </p>
+
+        <p class="applicant-email">{{ application.volunteer.email }}</p>
+
+        <p class="applicant-date">
+          Applied: {{ application.applied_at|date:"Y-m-d" }}
+        </p>
       </div>
 
-      <span class="status-badge pending">Pending</span>
+      <span class="status-badge {{ application.status }}">
+        {{ application.status|title }}
+      </span>
     </div>
 
     <div class="application-actions">
-        <button class="btn small-btn"
-        onclick="openModal('Approve this volunteer?')">
-        Approve
-        </button>
+      {% if application.status == "pending" %}
 
-        <button class="btn outline-btn small-btn"
-        onclick="openModal('Reject this volunteer?')">
-        Reject
-        </button>
+      <form
+        method="post"
+        action="{% url 'organiser:approve_application' application.id %}"
+        style="display: inline"
+      >
+        {% csrf_token %}
+        <button class="btn small-btn">Approve</button>
+      </form>
 
-      <label class="attended">
-        <input type="checkbox">
-        Attended
-      </label>
-    </div>
+      <form
+        method="post"
+        action="{% url 'organiser:reject_application' application.id %}"
+        style="display: inline"
+      >
+        {% csrf_token %}
+        <button class="btn outline-btn small-btn">Reject</button>
+      </form>
 
-  </div>
+      {% elif application.status == "approved" %}
 
-
-  <!-- Applicant 2 -->
-  <div class="application-card">
-
-    <div class="application-info">
-      <div>
-        <p class="applicant-name">
-          <a href="{% url 'activities:profile' %}" class="profile-link">
-        Tianshu Zhou</a></p>
-        <p class="applicant-email">tianshu@gmail.com</p>
-        <p class="applicant-date">Applied: 2026-02-13</p>
-      </div>
-
-      <span class="status-badge approved">Approved</span>
-    </div>
-
-    <div class="application-actions">
       <button class="btn small-btn disabled-btn">Approved</button>
 
-      <label class="attended">
-        <input type="checkbox">
-        Attended
-      </label>
-    </div>
+      {% elif application.status == "rejected" %}
 
+      <button class="btn outline-btn small-btn disabled-btn">Rejected</button>
+
+      {% endif %} 
+      
+      {% if application.status == "approved" %}
+
+      <form method="post"
+            action="{% url 'organiser:toggle_attendance' application.id %}"
+            style="display:inline;">
+        {% csrf_token %}
+      
+        <label class="attended">
+      
+          <input type="checkbox"
+                 name="attended"
+                 value="true"
+                 onchange="this.form.submit()"
+                 {% if application.attended %}checked{% endif %}>
+      
+          Attended
+      
+        </label>
+      
+      </form>
+      
+      {% endif %}
+    </div>
   </div>
 
+  {% empty %}
 
-  <!-- Applicant 3 -->
-  <div class="application-card">
+  <p>No applications yet.</p>
 
-    <div class="application-info">
-      <div>
-        <p class="applicant-name">
-          <a href="{% url 'activities:profile' %}" class="profile-link">
-              Ovais Shaikh</a></p>
-        <p class="applicant-email">ovais@gmail.com</p>
-        <p class="applicant-date">Applied: 2026-02-12</p>
-      </div>
-
-      <span class="status-badge pending">Pending</span>
-    </div>
-
-    <div class="application-actions">
-        <button class="btn small-btn"
-        onclick="openModal('Approve this volunteer?')">
-        Approve
-        </button>
-
-        <button class="btn outline-btn small-btn"
-        onclick="openModal('Reject this volunteer?')">
-        Reject
-        </button>
-
-      <label class="attended">
-        <input type="checkbox">
-        Attended
-      </label>
-    </div>
-
-  </div>
-
+  {% endfor %}
 </section>
-
 
 <a href="{% url 'organiser:applications' %}" class="btn outline-btn">
   ← Back to Applications
 </a>
+
 {% endblock %}

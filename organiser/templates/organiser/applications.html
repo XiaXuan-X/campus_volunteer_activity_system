@@ -11,73 +11,85 @@
       <h2>Manage applications</h2>
       <div class="divider"></div>
 
-      <!-- Activity item 1 -->
+{% for activity in activities %}
+
       <div class="activity-admin">
-        <div class="activity-admin-title">Food Bank Volunteer Drive</div>
+
+        <div class="activity-admin-title">
+          {{ activity.title }}
+        </div>
 
         <div class="activity-admin-meta">
+
           <div class="kv compact">
             <div class="k">Date</div>
-            <div class="v">2026-02-25</div>
+            <div class="v">{{ activity.start_datetime|date:"Y-m-d" }}</div>
           </div>
 
           <div class="kv compact">
             <div class="k">Location</div>
-            <div class="v">James McCune Smith Building</div>
+            <div class="v">{{ activity.location }}</div>
           </div>
 
           <div class="kv compact">
             <div class="k">Applications</div>
-            <div class="v">2 total (1 pending, 1 approved)</div>
+            <div class="v">{{ activity.applications.count }} total</div>
           </div>
+
         </div>
 
         <div class="activity-admin-actions">
           <button class="btn small-btn"
                   type="button"
-                  onclick="toggleApps('apps1', this)">
+                  onclick="toggleApps('apps{{ activity.id }}', this)">
             View applications
           </button>
         </div>
 
-        <!-- Hidden applications preview -->
-        <div id="apps1" class="applications-preview" style="display:none; margin-top:16px;">
+
+        <div id="apps{{ activity.id }}"
+             class="applications-preview"
+             style="display:none; margin-top:16px;">
+
+{% for application in activity.applications.all %}
 
           <div class="application-card">
+
             <div class="application-info">
+
               <div>
                 <p class="applicant-name">
-                  <a href="{% url 'activities:profile' %}" class="profile-link">
-                    Ovais Shaikh
+                  <a href="{% url 'activities:view_profile' application.volunteer.id %}" class="profile-link">
+                    {{ application.volunteer.get_full_name }}
                   </a>
                 </p>
-                <p class="applicant-email">ovais@gmail.com</p>
-                <p class="applicant-date">Applied: 2026-02-12</p>
-              </div>
 
-              <span class="status-badge pending">Pending</span>
-            </div>
-          </div>
-
-          <div class="application-card">
-            <div class="application-info">
-              <div>
-                <p class="applicant-name">
-                  <a href="{% url 'activities:profile' %}" class="profile-link">
-                    Tianshu Zhou
-                  </a>
+                <p class="applicant-email">
+                  {{ application.volunteer.email }}
                 </p>
-                <p class="applicant-email">tianshu@gmail.com</p>
-                <p class="applicant-date">Applied: 2026-02-13</p>
+
+                <p class="applicant-date">
+                  Applied: {{ application.applied_at|date:"Y-m-d" }}
+                </p>
               </div>
 
-              <span class="status-badge approved">Approved</span>
+              <span class="status-badge {{ application.status }}">
+                {{ application.status|title }}
+              </span>
+
             </div>
+
           </div>
+
+{% empty %}
+
+          <p>No applications yet.</p>
+
+{% endfor %}
 
           <div style="margin-top:12px;">
             <a class="btn outline-btn small-btn"
-               href="{% url 'organiser:application_detail' %}">
+              href="{% url 'organiser:application_detail' activity.id %}">
               See full details
             </a>
           </div>
@@ -86,83 +98,26 @@
 
       </div>
 
-      <!-- Activity item 2 -->
-      <div class="activity-admin">
-        <div class="activity-admin-title">Campus Blood Drive</div>
+{% endfor %}
 
-        <div class="activity-admin-meta">
-          <div class="kv compact">
-            <div class="k">Date</div>
-            <div class="v">2026-03-25</div>
-          </div>
 
-          <div class="kv compact">
-            <div class="k">Location</div>
-            <div class="v">University Main Campus</div>
-          </div>
-
-          <div class="kv compact">
-            <div class="k">Applications</div>
-            <div class="v">1 total (0 pending, 1 approved)</div>
-          </div>
-        </div>
-
-        <div class="activity-admin-actions">
-          <button class="btn small-btn"
-                  type="button"
-                  onclick="toggleApps('apps2', this)">
-            View applications
-          </button>
-        </div>
-
-        <!-- Hidden applications preview -->
-        <div id="apps2" class="applications-preview" style="display:none; margin-top:16px;">
-
-          <div class="application-card">
-            <div class="application-info">
-              <div>
-                <p class="applicant-name">
-                  <a href="{% url 'activities:profile' %}" class="profile-link">
-                    Tianshu Zhou
-                  </a>
-                </p>
-                <p class="applicant-email">tianshu@gmail.com</p>
-                <p class="applicant-date">Applied: 2026-03-01</p>
-              </div>
-
-              <span class="status-badge approved">Approved</span>
-            </div>
-          </div>
-
-          <div style="margin-top:12px;">
-            <a class="btn outline-btn small-btn"
-               href="{% url 'organiser:application_detail' %}">
-              See full details
-            </a>
-          </div>
-
-        </div>
-
-      </div>
-
-      <!-- Summary -->
       <div class="summary-box">
         <div class="summary-title">Summary</div>
 
         <div class="kv compact">
           <div class="k">Total activities</div>
-          <div class="v">2</div>
+          <div class="v">{{ activities|length }}</div>
         </div>
 
         <div class="kv compact">
           <div class="k">Total applications</div>
-          <div class="v">3</div>
+          <div class="v">
+            {% for activity in activities %}
+              {{ activity.applications.count }}
+            {% endfor %}
+          </div>
         </div>
 
-        <div class="kv compact">
-          <div class="k">Pending reviews</div>
-          <div class="v">1</div>
-        </div>
       </div>
 
     </section>

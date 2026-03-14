@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Volunteer Profile{% endblock %}
+
+{% block content %}
+
+<h1 class="hero-title">{{ profile_user.get_full_name }}</h1>
+
+<section class="card">
+
+<h2>User details</h2>
+<div class="divider"></div>
+
+<div class="kv">
+<div class="k">Email</div>
+<div class="v">{{ profile_user.email }}</div>
+</div>
+
+<div class="kv">
+<div class="k">Phone</div>
+<div class="v">{{ profile_user.phone }}</div>
+</div>
+
+</section>
+
+<section class="card">
+
+<h2>Volunteer Information</h2>
+<div class="divider"></div>
+
+<div class="kv">
+<div class="k">Skills</div>
+<div class="v">{{ profile_user.skills }}</div>
+</div>
+
+<div class="kv">
+<div class="k">Previous experience</div>
+<div class="v">{{ profile_user.previous_experience }}</div>
+</div>
+
+</section>
+
+<a href="javascript:history.back()" class="btn outline-btn">
+← Back
+</a>
+
+{% endblock %}

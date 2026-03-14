@@ -7,119 +7,58 @@
 <div class="page">
   <div class="container">
 
-    <div class="profile-header">
-      <div class="avatar">XX</div>
+    <h1 class="hero-title">My Profile</h1>
 
-      <div class="profile-head-text">
-        <h1 class="profile-name">Xuan Xia</h1>
-        <div class="profile-role">Volunteer</div>
-        <div class="profile-email">xuanxia@example.com</div>
-      </div>
+    <section class="card">
 
-      <div class="profile-head-actions">
-        <a class="btn small-btn" href="{% url 'password_reset' %}">Reset Password</a>
-      </div>
-    </div>
+      <h2>Basic Information</h2>
+      <div class="divider"></div>
 
-    <!-- Cards grid -->
-    <div class="profile-grid2">
+      <form method="post">
 
-      <!-- User details + Emergency contact (merged) -->
-      <section class="card profile-block">
-        <div class="block-head">
-          <h2>User details</h2>
-        </div>
-        <div class="divider"></div>
+        {% csrf_token %}
 
-        <div class="kv">
-          <div class="k">Email address</div>
-          <div class="v">xuanxia@example.com</div>
+        <div class="field">
+          <label>First Name</label>
+          <input type="text" value="{{ user.first_name }}" disabled>
         </div>
 
-        <div class="kv">
-          <div class="k">Phone number</div>
-          <div class="v">07XXXXXXXXX</div>
+        <div class="field">
+          <label>Last Name</label>
+          <input type="text" value="{{ user.last_name }}" disabled>
         </div>
 
-        <div class="kv">
-          <div class="k">Country</div>
-          <div class="v">United Kingdom</div>
+        <div class="field">
+          <label>Email</label>
+          <input type="text" value="{{ user.email }}" disabled>
         </div>
 
-        <div class="kv">
-          <div class="k">City/town</div>
-          <div class="v">Glasgow</div>
-        </div>
-
-        <div class="kv">
-          <div class="k">Timezone</div>
-          <div class="v">Europe/London</div>
-        </div>
-
-        <div class="kv">
-          <div class="k">Programme</div>
-          <div class="v">Master of Science (IT)</div>
+        <div class="field">
+          <label>Phone</label>
+          <input type="text" name="phone" value="{{ user.phone }}">
         </div>
 
         <div class="divider"></div>
 
-        <div class="block-head">
-          <h2>Emergency contact</h2>
-        </div>
-        <div class="divider"></div>
+        <h2>Volunteer Information</h2>
 
-        <div class="kv">
-          <div class="k">Name</div>
-          <div class="v">XXXXX</div>
+        <div class="field">
+          <label>Skills</label>
+          <textarea name="skills">{{ user.skills }}</textarea>
         </div>
 
-        <div class="kv">
-          <div class="k">Relationship</div>
-          <div class="v">Parent</div>
+        <div class="field">
+          <label>Previous Experience</label>
+          <textarea name="previous_experience">{{ user.previous_experience }}</textarea>
         </div>
 
-        <div class="kv">
-          <div class="k">Phone</div>
-          <div class="v">XXXXXXXXXXX</div>
-        </div>
-      </section>
+        <button class="btn">
+          Save Profile
+        </button>
 
-      <!-- Volunteer info -->
-      <section class="card profile-block">
-        <div class="block-head">
-          <h2>Volunteer information</h2>
-        </div>
-        <div class="divider"></div>
+      </form>
 
-        <div class="kv">
-          <div class="k">Skills</div>
-          <div class="v">Event support, basic admin, communication</div>
-        </div>
-
-        <div class="kv">
-          <div class="k">Previous experience</div>
-          <div class="v">
-            Joined campus clean-up events and supported charity donation drives.
-          </div>
-        </div>
-
-        <div class="kv">
-          <div class="k">Availability</div>
-          <div class="v">Weekends, weekdays evenings</div>
-        </div>
-
-        <div class="kv">
-          <div class="k">About me</div>
-          <div class="v">
-            Interested in community service and student-led volunteering opportunities.
-          </div>
-        </div>
-        <a href="javascript:history.back()" class="back-floating">
-        ← Back
-        </a>
-      </section>
-
-    </div>
+    </section>
 
   </div>
 </div>

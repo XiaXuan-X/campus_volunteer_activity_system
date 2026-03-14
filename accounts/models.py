@@ -18,6 +18,9 @@ class User(AbstractUser):
         max_length=20,
         blank=True
     )
+    
+    skills = models.TextField(blank=True)
+    previous_experience = models.TextField(blank=True)
 
     def __str__(self):
         return self.username

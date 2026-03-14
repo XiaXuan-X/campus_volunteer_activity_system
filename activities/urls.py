@@ -9,5 +9,6 @@ urlpatterns = [
     path("my_applications/", views.my_applications, name="my_applications"),
     path("profile/", views.profile, name="profile"),
     path("logout/", views.logout_view, name="logout"),
-    path("apply/<int:activity_id>/", views.apply, name="apply")
+    path("apply/<int:activity_id>/", views.apply, name="apply"),
+    path("profile/<int:user_id>/", views.view_profile, name="view_profile"),
 ]

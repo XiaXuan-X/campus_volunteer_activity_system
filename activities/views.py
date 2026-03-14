@@ -4,6 +4,9 @@ from django.utils import timezone
 from django.shortcuts import get_object_or_404
 from organiser.models import Application
 from django.db.models import Count, Q
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404
+from accounts.models import User
 
 def dashboard(request):
 
@@ -113,25 +116,31 @@ def my_applications(request):
         "applications": applications
     })
 
+@login_required
 def profile(request):
-    return render(request, "activities/profile.html")
+    user = request.user
+    if request.method == "POST":
+        user.phone = request.POST.get("phone")
+        user.skills = request.POST.get("skills")
+        user.previous_experience = request.POST.get("previous_experience")
+        user.save()
+
+    return render(request, "activities/profile.html", {
+        "user": user
+    })
 
 def logout_view(request):
     return redirect("login")
 
 def apply(request, activity_id):
-
     activity = get_object_or_404(Activity, id=activity_id)
-
     # prevent duplicate applications
     already_applied = Application.objects.filter(
         volunteer=request.user,
         activity=activity
     ).exists()
-
     if already_applied:
         return redirect("activities:my_applications")
-
     Application.objects.create(
         volunteer=request.user,
         activity=activity,
@@ -139,3 +148,11 @@ def apply(request, activity_id):
     )
 
     return redirect("activities:my_applications")
+
+def view_profile(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    context = {
+        "profile_user": user
+    }
+
+    return render(request, "activities/view_profile.html", context)

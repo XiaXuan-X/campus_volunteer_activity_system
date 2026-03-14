@@ -1,11 +1,20 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from activities.models import Activity
+from organiser.models import Application
 from datetime import datetime
 
 
 def organiser_applications(request):
-    return render(request, "organiser/applications.html")
+    activities = Activity.objects.filter(organiser=request.user)
+
+    return render(
+        request,
+        "organiser/applications.html",
+        {
+            "activities": activities
+        }
+    )
 
 
 def create_activity(request):
@@ -79,8 +88,22 @@ def edit_activity(request, activity_id):
     })
 
 
-def application_detail(request):
-    return render(request, "organiser/application_detail.html")
+def application_detail(request, activity_id):
+    activity = get_object_or_404(
+        Activity,
+        id=activity_id,
+        organiser=request.user
+    )
+    applications = activity.applications.all()
+
+    return render(
+        request,
+        "organiser/application_detail.html",
+        {
+            "activity": activity,
+            "applications": applications
+        }
+    )
 
 def delete_activity(request, activity_id):
     activity = get_object_or_404(Activity, id=activity_id)
@@ -88,3 +111,61 @@ def delete_activity(request, activity_id):
     activity.delete()
 
     return redirect("organiser:manage_activities")
+
+def activity_applications(request, activity_id):
+    activity = get_object_or_404(Activity, id=activity_id, organiser=request.user)
+    applications = activity.applications.all()
+
+    return render(
+        request,
+        "organiser/applications.html",
+        {
+            "activity": activity,
+            "applications": applications,
+        },
+    )
+    
+def approve_application(request, application_id):
+    application = get_object_or_404(Application, id=application_id)
+    activity = application.activity
+    approved_count = Application.objects.filter(
+        activity=activity,
+        status="approved"
+    ).count()
+    if approved_count >= activity.max_volunteers:
+        messages.error(request, "This activity is already full.")
+        return redirect(
+            "organiser:application_detail",
+            activity_id=activity.id
+        )
+    application.status = "approved"
+    application.save()
+    messages.success(request, "Volunteer approved successfully.")
+
+    return redirect(
+        "organiser:application_detail",
+        activity_id=activity.id
+    )
+
+def reject_application(request, application_id):
+    application = get_object_or_404(Application, id=application_id)
+    application.status = "rejected"
+    application.save()
+    messages.success(request, "Volunteer rejected")
+
+    return redirect(
+        "organiser:application_detail",
+        activity_id=application.activity.id
+    )
+
+def toggle_attendance(request, application_id):
+    application = get_object_or_404(Application, id=application_id)
+    if request.method == "POST":
+
+        application.attended = "attended" in request.POST
+        application.save()
+
+    return redirect(
+        "organiser:application_detail",
+        activity_id=application.activity.id
+    )
