@@ -3,7 +3,6 @@
 {% block title %}Profile | Campus Volunteer{% endblock %}
 
 {% block content %}
-
 <div class="page">
   <div class="container">
 
@@ -11,6 +10,7 @@
 
     <section class="card">
 
+      <!-- Basic information for all users -->
       <h2>Basic Information</h2>
       <div class="divider"></div>
 
@@ -38,19 +38,24 @@
           <input type="text" name="phone" value="{{ user.phone }}">
         </div>
 
+        <!-- Only volunteers need to fill in skills and experience -->
+        {% if request.user.role == "volunteer" %}
+
         <div class="divider"></div>
 
         <h2>Volunteer Information</h2>
 
         <div class="field">
           <label>Skills</label>
-          <textarea name="skills">{{ user.skills }}</textarea>
+          <textarea name="skills" rows="3">{{ user.skills }}</textarea>
         </div>
 
         <div class="field">
           <label>Previous Experience</label>
-          <textarea name="previous_experience">{{ user.previous_experience }}</textarea>
+          <textarea name="previous_experience" rows="4">{{ user.previous_experience }}</textarea>
         </div>
+
+        {% endif %}
 
         <button class="btn">
           Save Profile

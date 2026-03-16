@@ -9,6 +9,8 @@ class Application(models.Model):
         ('pending', 'Pending'),
         ('approved', 'Approved'),
         ('rejected', 'Rejected'),
+        ('cancelled', 'Cancelled'),
+        ('upcoming', 'Upcoming'),
     )
 
     volunteer = models.ForeignKey(

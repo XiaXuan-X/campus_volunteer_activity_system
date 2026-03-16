@@ -4,6 +4,8 @@
 
 {% block content %}
 
+{% now "YmdHis" as now_value %}
+
 <h1 class="hero-title">Activity Details</h1>
 
 <section class="card">
@@ -14,41 +16,43 @@
   <div class="detail-grid">
 
     <div class="detail-item">
-      <span class="detail-label">Activity Title</span>
+      <span class="detail-label">Activity Title:</span>
       <span class="detail-value">{{ activity.title }}</span>
     </div>
 
     <div class="detail-item">
-      <span class="detail-label">Location</span>
+      <span class="detail-label">Location:</span>
       <span class="detail-value">{{ activity.location }}</span>
     </div>
 
     <div class="detail-item">
-      <span class="detail-label">Start Date & Time</span>
+      <span class="detail-label">Start Date & Time:</span>
       <span class="detail-value">
         {{ activity.start_datetime|date:"d M Y" }} {{ activity.start_datetime|time:"H:i" }}
       </span>
     </div>
 
     <div class="detail-item">
-      <span class="detail-label">End Date & Time</span>
+      <span class="detail-label">End Date & Time:</span>
       <span class="detail-value">
         {{ activity.end_datetime|date:"d M Y" }} {{ activity.end_datetime|time:"H:i" }}
       </span>
     </div>
 
     <div class="detail-item">
-      <span class="detail-label">Volunteers</span>
+      <span class="detail-label">Volunteers:</span>
       <span class="detail-value">{{ approved_count }} / {{ activity.max_volunteers }}</span>
     </div>
 
     <div class="detail-item">
-      <span class="detail-label">Status</span>
+      <span class="detail-label">Status:</span>
       <span class="detail-value">
-        {% if approved_count >= activity.max_volunteers %}
-          Full
+        {% if activity.end_datetime|date:"YmdHis" < now_value %}
+          <span class="detail-value">Closed</span>
+        {% elif approved_count >= activity.max_volunteers %}
+          <span class="detail-value">Full</span>
         {% else %}
-          Open
+          <span class="detail-value">Open</span>
         {% endif %}
       </span>
     </div>
@@ -66,9 +70,9 @@
     <a href="{% url 'organiser:manage_activities' %}" class="action-btn">Back</a>
     <a href="{% url 'organiser:edit_activity' activity.id %}" class="action-btn">Edit</a>
     <a href="#"
-     class="action-btn danger"
-     onclick="openModal('Delete this activity?', '{% url 'organiser:delete_activity' activity.id %}'); return false;">
-     Delete
+       class="action-btn danger"
+       onclick="openModal('Delete this activity?', '{% url 'organiser:delete_activity' activity.id %}'); return false;">
+       Delete
     </a>
   </div>
 

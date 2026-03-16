@@ -86,7 +86,7 @@ Create Activity | Campus Volunteer
     </div>
 
     <div class="field">
-      <label class="label" for="max_volunteers">Maximum Volunteers *</label>
+      <label class="label" for="max_volunteers">Maximum Volunteers (only number) *</label>
       <input
         id="max_volunteers"
         name="max_volunteers"
@@ -106,7 +106,16 @@ Create Activity | Campus Volunteer
     </button>
 
   </form>
+      <script>
+      document.addEventListener("DOMContentLoaded", function () {
 
+      const start = document.getElementById("start_datetime");
+
+      const now = new Date();
+      now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+
+      start.min = now.toISOString().slice(0,16);});
+    </script>
 </section>
 
 {% endblock %}

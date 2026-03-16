@@ -10,34 +10,53 @@
   View, edit and monitor the activities you have created.
 </p>
 
-<section class="toolbar-card">
-  <div class="toolbar-left">
-    <input type="text" class="search-input" placeholder="Search activities">
+<form class="toolbar-card" method="get">
 
-    <select class="filter-select">
-      <option>All Status</option>
-      <option>Open</option>
-      <option>Full</option>
-      <option>Closed</option>
+  <div class="toolbar-left">
+    <input type="text"
+           name="q"
+           class="search-input"
+           placeholder="Search activities"
+           value="{{ request.GET.q }}">
+
+    <select name="status" class="filter-select">
+      <option value="">All Status</option>
+      <option value="open">Open</option>
+      <option value="full">Full</option>
+      <option value="closed">Closed</option>
+      <option value="upcoming">Upcoming</option>
     </select>
   </div>
 
-  <a href="{% url 'organiser:create_activity' %}" class="btn">
-    + Create New Activity
-  </a>
-</section>
+  <div class="toolbar-right">
+
+    <button type="submit" class="btn search-btn">
+      SEARCH
+    </button>
+
+    <a href="{% url 'organiser:create_activity' %}" class="btn">
+      + CREATE NEW ACTIVITY
+    </a>
+
+  </div>
+
+</form>
 
 <section class="activities-list">
 
 {% for item in activity_data %}
-{% with activity=item.activity approved_count=item.approved_count %}
+{% with activity=item.activity approved_count=item.approved_count status=item.status %}
 
 <article class="activity-row">
 
   <div class="activity-main">
 
     <div class="activity-status-badge">
-      {% if approved_count >= activity.max_volunteers %}
+      {% if status == "upcoming" %}
+        <span class="status-badge upcoming">Upcoming</span>
+      {% elif status == "closed" %}
+        <span class="status-badge closed">Closed</span>
+      {% elif status == "full" %}
         <span class="status-badge full">Full</span>
       {% else %}
         <span class="status-badge open">Open</span>
@@ -79,7 +98,6 @@
 </article>
 
 {% endwith %}
-
 {% empty %}
 
 <p>No activities created yet.</p>

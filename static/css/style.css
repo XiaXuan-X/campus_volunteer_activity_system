@@ -1,6 +1,8 @@
+
+
     :root{
       --ink:#0f172a;
-      --muted:#64748b;
+      --muted:#475569;
       --border:#e2e8f0;
       --bg:#ffffff;
       --card:#ffffff;
@@ -108,7 +110,7 @@
       border-radius:10px;
       background:var(--btn);
       color:#fff;
-      font-weight:800;
+      font-weight:600;
       letter-spacing:0.06em;
       text-transform:uppercase;
       cursor:pointer;
@@ -388,9 +390,6 @@
       white-space: nowrap;
     }
 
-    .badge-pending{ background: #fff7ed; }
-    .badge-approved{ background: #ecfdf3; }
-    .badge-info{ background: #eff6ff; }
 
     .dash-footer{ margin-top:18px;
       padding-top:18px;
@@ -426,8 +425,25 @@
     }
 
     .search-btn{
-      width:auto;
-      padding:14px 22px;
+       width:auto;
+  padding:14px 22px;
+
+  font-family: "Times New Roman", Times, serif;
+  font-size:16px;
+  font-weight:600;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+
+  border:none;
+  border-radius:10px;
+  background:var(--btn);
+  color:#fff;
+  cursor:pointer;
+  text-align:center;
+
+  appearance:none;
+  -webkit-appearance:none;
+
     }
 
 
@@ -465,7 +481,6 @@
     .small-btn{
       width:auto;
       padding:10px 16px;
-      font-size:14px;
     }
     /* ===== Activity Detail ===== */
 
@@ -549,21 +564,6 @@
       color: var(--muted);
       font-size: 14px;
     }
-
-    textarea{
-      width: 100%;
-      padding: 14px 14px;
-      border: 2px solid var(--ink);
-      border-radius: 10px;
-      font-size: 15px;
-      outline: none;
-      resize: vertical;
-    }
-
-    textarea:focus{
-      box-shadow: 0 0 0 4px rgba(15,23,42,0.12);
-    }
-
     .checkbox-line{
       display: flex;
       gap: 10px;
@@ -673,22 +673,9 @@
   line-height: 1.5;
 }
 
-/* badges */
-.badge{
-  border:2px solid var(--ink);
-  border-radius:999px;
-  padding:6px 10px;
-  font-size:12px;
-  font-weight:900;
-  text-transform:uppercase;
-  letter-spacing:0.04em;
-  background:#fff;
-  white-space:nowrap;
-}
 
-.badge-pending{ background:#fff7ed; }   /* light orange */
-.badge-approved{ background:#ecfdf3; }  /* light green */
-.badge-rejected{ background:#fff1f2; }  /* light red */
+
+
 
 /* responsive */
 @media (max-width: 860px){
@@ -1068,12 +1055,15 @@
   color:  #ffffff;
 }
 
-.status-badge {
-  display: inline-block;
-  padding: 8px 14px;
-  border-radius: 999px;
-  font-size: 14px;
-  font-weight: 700;
+.status-badge{
+  display:inline-block;
+  padding:6px 14px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:600;
+
+  min-width:100px;
+  text-align:center;
 }
 
 .status-badge.open {
@@ -1131,17 +1121,28 @@
   font-size: 13px;
   font-weight: 600;
 }
-
+/* pending */
 .status-badge.pending {
   background: #fff4e5;
   color: #a15c00;
 }
-
+/* approved */
 .status-badge.approved {
   background: #e8f7ee;
   color: #157347;
 }
 
+/* rejected */
+.status-badge.rejected{
+  background:#fca5a5;
+  color:#7f1d1d;
+}
+
+/* cancelled */
+.status-badge.cancelled{
+  background:#f1f3f5;
+  color:#495057;
+}
 .attended {
   display: flex;
   align-items: center;
@@ -1332,4 +1333,85 @@ textarea:focus {
   gap: 16px;
   margin-top: 0;
   padding-top: 24px;
+}
+
+.field {
+  margin: 16px 0 18px;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 8px;
+}
+.profile-input {
+  width: 100%;
+  padding: 14px 18px;
+  border: 2px solid #1b2233;
+  border-radius: 18px;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  line-height: 1.4 !important;
+  color: #111 !important;
+  background: #fff;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.profile-area {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.profile-input:disabled {
+  background: #f5f5f5;
+  color: #555;
+  opacity: 1;
+}
+
+.field textarea {
+    width: 100%;
+    padding: 14px 18px;
+    border: 2px solid #1b2233;
+    border-radius: 18px;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.4;
+    min-height: 120px;
+    resize: vertical;
+  }
+  input:disabled,
+textarea:disabled {
+  background: #f5f7fb;
+  color: #6b7280;
+  cursor: not-allowed;
+}
+
+/* upcoming */
+.status-badge.upcoming{
+  background:#eff6ff;
+  color:#1d4ed8;
+}
+
+.status-badge.cancelled{
+  background:#f1f3f5;
+  color:#495057;
+}
+.status-badge.closed {
+  background: #f1f3f5;
+  color: #495057;
+}
+.toolbar-card{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+}
+
+.toolbar-right{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
 }

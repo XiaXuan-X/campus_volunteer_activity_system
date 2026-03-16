@@ -8,76 +8,85 @@ Activities | Campus Volunteer
 
 <div class="page">
   <div class="container">
-    <h1 class="hero-title">Available Activities</h1>
+    <h1 class="hero-title">Activities List</h1>
 
     <div class="divider"></div>
-
-    <!-- Filter bar -->
 
     <form class="filter-bar" method="get">
 
       <div class="filter-group">
-        <label class="label">Title</label>
-        <input type="text"
-               name="title"
-               placeholder="Enter title"
-               value="{{ request.GET.title }}">
+        <label class="label" for="filter-title">Title</label>
+        <input
+          id="filter-title"
+          type="text"
+          name="title"
+          placeholder="Enter title"
+          value="{{ request.GET.title }}"
+        >
       </div>
-    
+
       <div class="filter-group">
-        <label class="label">Location</label>
-        <input type="text"
-               name="location"
-               placeholder="Enter location"
-               value="{{ request.GET.location }}">
+        <label class="label" for="filter-location">Location</label>
+        <input
+          id="filter-location"
+          type="text"
+          name="location"
+          placeholder="Enter location"
+          value="{{ request.GET.location }}"
+        >
       </div>
-    
+
       <div class="filter-group">
-        <label class="label">Date</label>
-        <input type="date"
-               name="date"
-               value="{{ request.GET.date }}">
+        <label class="label" for="filter-date">Date</label>
+        <input
+          id="filter-date"
+          type="date"
+          name="date"
+          value="{{ request.GET.date }}"
+        >
       </div>
-    
+
       <button class="btn search-btn" type="submit">
         Search
       </button>
-    
-    </form>
 
-    <!-- Activity card -->
+    </form>
 
     {% for activity in activities %}
 
     <div class="activity-card">
 
       <div class="activity-header">
-        <h3>{{ activity.title }}</h3>
-    
+        <h2 class="activity-title">{{ activity.title }}</h2>
+
         <a class="btn small-btn"
            href="{% url 'activities:activity_detail' activity.id %}">
-           View Details
+          View Details
         </a>
       </div>
-    
+
       <p><strong>Location:</strong> {{ activity.location }}</p>
-    
+
       <p>
-        <strong>Date</strong>
+        <strong>Date:</strong>
         {{ activity.start_datetime|date:"d M Y" }}
-        </p>
-    
+      </p>
+
       <p>
         <strong>Volunteers:</strong>
         {{ activity.approved_volunteers }} / {{ activity.max_volunteers }}
       </p>
-    
-      {% if activity.approved_volunteers >= activity.max_volunteers %}
-          <span class="status-badge full">Full</span>
+
+      {% if activity.display_status == "closed" %}
+        <span class="status-badge closed">Closed</span>
+      {% elif activity.display_status == "upcoming" %}
+        <span class="status-badge upcoming">Upcoming</span>
+      {% elif activity.display_status == "full" %}
+        <span class="status-badge full">Full</span>
       {% else %}
-          <span class="status-badge open">Open</span>
+        <span class="status-badge open">Open</span>
       {% endif %}
-    
+
     </div>
 
     {% empty %}
@@ -85,6 +94,7 @@ Activities | Campus Volunteer
     <p>No activities available right now.</p>
 
     {% endfor %}
+
   </div>
 </div>
 

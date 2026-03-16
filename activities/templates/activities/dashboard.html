@@ -75,7 +75,7 @@
           </div>
         </div>
 
-        <span class="badge badge-{{ app.status }}">
+        <span class="status-badge {{ app.status }}">
           {{ app.status|title }}
         </span>
       </div>
@@ -112,7 +112,7 @@
           </div>
         </div>
 
-        <span class="badge badge-info">Upcoming</span>
+        <span class="status-badge upcoming">Upcoming</span>
       </div>
 
       {% empty %}

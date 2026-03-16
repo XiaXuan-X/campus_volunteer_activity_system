@@ -55,35 +55,47 @@
 
   </div>
 
-  <div class="detail-actions">
+<div class="detail-actions">
 
-    {% if is_full %}
-    
-    <button class="btn disabled-btn" disabled>
-      Activity Full
-    </button>
-    
-    {% elif already_applied %}
-    
-    <button class="btn outline-btn disabled-btn" disabled>
-      Already Applied
-    </button>
-    
-    {% else %}
-    
-    <a class="btn outline-btn"
+  {% if display_status == "closed" %}
+
+  <button class="btn disabled-btn" disabled>
+    Activity Closed
+  </button>
+
+  {% elif display_status == "upcoming" %}
+
+  <button class="btn disabled-btn" disabled>
+    Not Open Yet
+  </button>
+
+  {% elif is_full %}
+
+  <button class="btn disabled-btn" disabled>
+    Activity Full
+  </button>
+
+  {% elif already_applied %}
+
+  <button class="btn outline-btn disabled-btn" disabled>
+    Already Applied
+  </button>
+
+  {% else %}
+
+  <a class="btn outline-btn"
      href="#"
      onclick="openModal('Are you sure you want to apply for this activity?', '{% url 'activities:apply' activity.id %}'); return false;">
      Apply
-    </a>
-    
-    {% endif %}
-    
-    <a class="btn" href="{% url 'activities:activity_list' %}">
-      Close
-    </a>
-    
-  </div>
+  </a>
+
+  {% endif %}
+
+  <a class="btn" href="{% url 'activities:activity_list' %}">
+    Close
+  </a>
+
+</div>
 
 </section>
 

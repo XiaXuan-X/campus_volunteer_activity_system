@@ -19,7 +19,7 @@
 
   <div class="divider"></div>
 
-  <!-- Filter bar (front-end only) -->
+  <!-- Filter bar -->
   <form class="app-filter" method="get">
     <div class="filter-group">
       <label class="label" for="status">Filter by status</label>
@@ -28,14 +28,15 @@
         <option value="pending" {% if request.GET.status == "pending" %}selected{% endif %}>Pending</option>
         <option value="approved" {% if request.GET.status == "approved" %}selected{% endif %}>Approved</option>
         <option value="rejected" {% if request.GET.status == "rejected" %}selected{% endif %}>Rejected</option>
+        <option value="cancelled" {% if request.GET.status == "cancelled" %}selected{% endif %}>Cancelled</option>
       </select>
     </div>
 
     <div class="filter-group">
       <label class="label" for="q">Search by activity</label>
       <input id="q" name="q" type="text"
-       placeholder="Enter activity title"
-       value="{{ request.GET.q }}">
+             placeholder="Enter activity title"
+             value="{{ request.GET.q }}">
     </div>
 
     <button class="btn search-btn" type="submit">Search</button>
@@ -43,41 +44,44 @@
 
   <div class="divider"></div>
 
-  <!-- List -->
+  <!-- Application list -->
   <div class="app-list">
 
-    <div class="app-list">
+    {% for app in applications %}
 
-      {% for app in applications %}
-      
-      <div class="app-row">
-        <div class="app-main">
-      
-          <div class="app-title">
-            {{ app.activity.title }}
-          </div>
-      
-          <div class="app-meta">
-            Submitted: {{ app.applied_at|date:"d M Y" }} ·
-            Date: {{ app.activity.start_datetime|date:"d M Y" }} ·
-            {{ app.activity.location }}
-          </div>
-      
+    <div class="app-row">
+      <div class="app-main">
+
+        <div class="app-title">
+          {{ app.activity.title }}
         </div>
-      
-        <span class="badge badge-{{ app.status }}">
+
+        <div class="app-meta">
+          Submitted: {{ app.applied_at|date:"d M Y" }} ·
+          Date: {{ app.activity.start_datetime|date:"d M Y" }} ·
+          {{ app.activity.location }}
+        </div>
+
+      </div>
+
+      <div class="app-actions">
+        <span class="status-badge {{ app.status }}">
           {{ app.status|title }}
         </span>
-      
+
+        {% if app.status == "pending" %}
+          <a href="{% url 'activities:cancel_application' app.id %}" class="btn small-btn">
+            Cancel
+          </a>
+        {% endif %}
       </div>
-      
-      {% empty %}
-      
-      <p>You have not applied to any activities yet.</p>
-      
-      {% endfor %}
-      
-      </div>
+    </div>
+
+    {% empty %}
+
+    <p>You have not applied to any activities yet.</p>
+
+    {% endfor %}
 
   </div>
 

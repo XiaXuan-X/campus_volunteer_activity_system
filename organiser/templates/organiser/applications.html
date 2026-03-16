@@ -109,14 +109,10 @@
           <div class="v">{{ activities|length }}</div>
         </div>
 
-        <div class="kv compact">
-          <div class="k">Total applications</div>
-          <div class="v">
-            {% for activity in activities %}
-              {{ activity.applications.count }}
-            {% endfor %}
-          </div>
-        </div>
+      <div class="kv compact">
+      <div class="k">Total applications</div>
+      <div class="v">{{ total_applications }}</div>
+    </div>
 
       </div>
 
